@@ -1,11 +1,8 @@
 from flask_frozen import Freezer
-from app import app  # Assuming your Flask app instance is named 'app' in app.py
+from app import app
 
-# Instantiate the Freezer
 freezer = Freezer(app)
-
-# Add this line to exclude the /toggle-theme URL
-freezer.exclude_urls = ['/toggle-theme']
+freezer.exclude_urls = ['/toggle-theme'] # Crucial line
 
 if __name__ == '__main__':
     print("Freezing site...")
@@ -15,4 +12,4 @@ if __name__ == '__main__':
     except Exception as e:
         print(f"An error occurred during freezing: {e}")
         import sys
-        sys.exit(2) # Ensure a non-zero exit code on error
+        sys.exit(2)
