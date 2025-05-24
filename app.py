@@ -723,7 +723,10 @@ def page_not_found(e):
 def internal_server_error(e):
     """Custom 500 error page."""
     return "Internal Server Error", 500
-
+@app.route('/toggle-theme')
+def toggle_theme():
+    """Placeholder for server-side theme logic."""
+    return '', 204
 # --- Run the App ---
 if __name__ == '__main__':
     app.run(debug=True)
