@@ -1,0 +1,546 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<style>
+    /* Styles specific to this project page */
+    .project-hero {
+        height: 400px;
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{{ url_for('static', filename='images/projects/predictive-analytics-bg.jpg') }}'); /* Placeholder image */
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        color: #fff; /* Ensure text is visible */
+    }
+
+    .project-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at center, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.6) 100%);
+    }
+
+    .project-icon {
+        font-size: 120px;
+        color: rgba(255, 255, 255, 0.1);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+    }
+
+    .project-title-container {
+        text-align: center;
+        z-index: 2;
+        max-width: 800px;
+        padding: 0 20px;
+    }
+
+    .project-title {
+        font-size: 48px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #fff;
+    }
+
+    .project-subtitle {
+        font-size: 20px;
+        font-weight: 300;
+        color: #ddd;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .project-tags {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap; /* Allow tags to wrap */
+        gap: 10px;
+    }
+
+    .project-tag {
+        padding: 6px 16px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        font-size: 14px;
+        color: #fff;
+        border-radius: 0; /* Match main style */
+    }
+
+    .project-content {
+        max-width: 900px;
+        margin: 60px auto;
+        padding: 0 20px;
+    }
+
+    .project-section {
+        margin-bottom: 60px;
+    }
+
+    .project-section-title {
+        font-size: 28px;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 15px;
+        color: var(--color-text); /* Use theme color */
+    }
+
+    .project-section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background-color: var(--color-accent); /* Use theme accent */
+    }
+
+    .project-image-container {
+        margin: 30px 0;
+        border: 1px solid var(--color-border); /* Use theme border */
+        overflow: hidden; /* Hide overflow */
+    }
+
+    .project-image {
+        width: 100%;
+        height: auto;
+        display: block; /* Remove extra space below image */
+    }
+
+    .project-text {
+        margin-bottom: 20px;
+        line-height: 1.7; /* Match base style */
+        color: var(--color-text-secondary); /* Use theme secondary text */
+        font-size: 1.6rem; /* Match base style */
+    }
+    .project-text ul {
+        list-style: disc;
+        padding-left: 3rem;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    .project-text li {
+        margin-bottom: 1rem;
+    }
+    .project-text strong {
+        color: var(--color-text); /* Make strong text brighter */
+    }
+
+
+    .project-charts {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjust min size */
+        gap: 30px;
+        margin: 40px 0;
+    }
+
+    .chart-container {
+        background-color: var(--color-card); /* Use theme card color */
+        border: 1px solid var(--color-border); /* Use theme border */
+        padding: 20px;
+        height: 300px;
+        display: flex; /* Added for placeholder */
+        flex-direction: column; /* Added for placeholder */
+    }
+
+    .chart-title {
+        text-align: center;
+        margin-bottom: 15px;
+        font-size: 18px;
+        color: var(--color-text); /* Use theme text color */
+    }
+
+    .project-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Adjust min size */
+        gap: 20px;
+        margin: 30px 0;
+    }
+
+    .stat-card {
+        background-color: var(--color-card); /* Use theme card color */
+        border: 1px solid var(--color-border); /* Use theme border */
+        padding: 20px;
+        text-align: center;
+        transition: all var(--transition-speed) ease;
+    }
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--box-shadow-hover);
+        border-color: var(--color-accent);
+    }
+
+    .stat-value {
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--color-accent); /* Use accent color for value */
+    }
+
+    .stat-label {
+        font-size: 14px;
+        color: var(--color-text-secondary); /* Use theme secondary text */
+    }
+
+    .technologies-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .technology-item {
+        display: inline-flex; /* Changed to inline-flex */
+        align-items: center;
+        gap: 10px;
+        background-color: var(--color-card); /* Use theme card color */
+        border: 1px solid var(--color-border); /* Use theme border */
+        padding: 10px 15px;
+        color: var(--color-text-secondary); /* Use theme secondary text */
+        transition: all var(--transition-speed) ease;
+    }
+    .technology-item:hover {
+        color: var(--color-accent);
+        border-color: var(--color-accent);
+        transform: translateY(-3px);
+    }
+
+    .tech-icon {
+        /* font-size: 18px; */ /* Size controlled by lucide */
+        color: inherit; /* Inherit color */
+    }
+    .tech-icon svg { /* Style the SVG icon */
+        width: 1.6rem;
+        height: 1.6rem;
+    }
+
+    .timeline {
+        position: relative;
+        margin: 40px 0;
+        padding-left: 30px; /* Space for dots */
+        border-left: 2px solid var(--color-border); /* Use theme border */
+    }
+
+    /* Removed timeline::before as border-left is used now */
+
+    .timeline-item {
+        position: relative;
+        margin-bottom: 30px;
+        padding-bottom: 30px;
+        padding-left: 20px; /* Space from dot */
+    }
+
+    .timeline-item:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .timeline-dot {
+        position: absolute;
+        left: -7px; /* Position over the border line */
+        top: 5px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: var(--color-background); /* Match background */
+        border: 2px solid var(--color-accent); /* Use accent color */
+        z-index: 1;
+    }
+
+    .timeline-title {
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: var(--color-text); /* Use theme text color */
+    }
+
+    .project-navigation {
+        margin-top: 60px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap; /* Allow wrapping */
+        gap: 20px; /* Add gap */
+        padding-top: 30px; /* Space above */
+        border-top: 1px solid var(--color-border); /* Separator line */
+    }
+
+    .nav-button {
+        display: inline-flex; /* Use inline-flex */
+        align-items: center;
+        gap: 10px;
+        padding: 12px 20px;
+        border: 1px solid var(--color-border); /* Use theme border */
+        color: var(--color-text-secondary); /* Use theme secondary text */
+        text-decoration: none;
+        transition: all 0.3s ease;
+        background-color: var(--color-card); /* Match card background */
+        flex-grow: 1; /* Allow buttons to grow */
+        justify-content: center; /* Center content */
+        text-align: center;
+    }
+
+    .nav-button:hover {
+        background-color: var(--color-accent);
+        border-color: var(--color-accent);
+        color: #fff; /* White text on accent */
+        transform: translateY(-3px);
+        box-shadow: var(--box-shadow-hover);
+    }
+
+    .nav-button.next {
+        /* flex-direction: row-reverse; */ /* Handled by order in HTML now */
+    }
+    .nav-button span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; /* Prevent long titles breaking layout */
+        max-width: 200px; /* Adjust as needed */
+    }
+
+    /* Specific styling for chart placeholders */
+    .chart-placeholder {
+        width: 100%;
+        flex-grow: 1; /* Allow placeholder to fill space */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0,0,0,0.2); /* Darker placeholder bg */
+        color: #555; /* Dimmer text */
+        font-size: 14px;
+        border: 1px dashed var(--color-border); /* Dashed border */
+        min-height: 200px; /* Ensure minimum height */
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="project-hero">
+    <div class="project-icon">
+        <i data-lucide="bar-chart-2"></i>
+    </div>
+    <div class="project-title-container">
+        <h1 class="project-title">{{ project.title }}</h1>
+        <p class="project-subtitle">{{ project.description }}</p>
+
+        <div class="project-tags">
+            {% for tag in project.tags %}
+            <span class="project-tag">{{ tag }}</span>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="project-content">
+    <div class="project-section">
+        <h2 class="project-section-title">Project Overview</h2>
+        <p class="project-text">
+            The Predictive Analytics Platform was developed to address the complex challenges of supply chain forecasting and
+            inventory optimization. By leveraging advanced time-series analysis and machine learning techniques, the platform
+            enables organizations to accurately predict demand patterns, optimize inventory levels, and streamline their
+            supply chain operations.
+        </p>
+        <p class="project-text">
+            This platform was designed as a scalable, modular solution that integrates with existing ERP and inventory
+            management systems, providing actionable insights without disrupting established workflows.
+        </p>
+
+        <div class="project-image-container">
+            <img src="{{ url_for('static', filename='images/placeholder_800x400.png') }}" alt="Predictive Analytics Platform Architecture" class="project-image" onerror="this.onerror=null;this.src='https://placehold.co/800x400/111111/333333?text=Architecture+Diagram';">
+        </div>
+    </div>
+
+    <div class="project-section">
+        <h2 class="project-section-title">Key Features</h2>
+
+        <div class="project-stats">
+            <div class="stat-card">
+                <div class="stat-value">95%</div>
+                <div class="stat-label">Forecast Accuracy</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">28%</div>
+                <div class="stat-label">Efficiency Improvement</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">42%</div>
+                <div class="stat-label">Inventory Reduction</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">3.2M</div>
+                <div class="stat-label">Annual Cost Savings</div>
+            </div>
+        </div>
+
+        <ul class="project-text">
+            <li><strong>Multi-horizon Forecasting:</strong> Provides short-term (days), medium-term (weeks), and long-term (months) predictions</li>
+            <li><strong>Anomaly Detection:</strong> Automatically identifies and flags unusual patterns or outliers in demand data</li>
+            <li><strong>Scenario Analysis:</strong> Allows users to simulate different scenarios and their impact on the supply chain</li>
+            <li><strong>Seasonality Handling:</strong> Automatically detects and accounts for multiple seasonal patterns</li>
+            <li><strong>External Factor Integration:</strong> Incorporates external variables such as promotions, weather, and economic indicators</li>
+            <li><strong>Automated Retraining:</strong> Models automatically retrain as new data becomes available</li>
+        </ul>
+    </div>
+
+    <div class="project-section">
+        <h2 class="project-section-title">Technical Architecture</h2>
+        <p class="project-text">
+            The platform was built using a modular, microservices-based architecture to ensure scalability and flexibility:
+        </p>
+
+        <ul class="project-text">
+            <li><strong>Data Ingestion Layer:</strong> Collects and processes data from various sources including ERP systems, IoT devices, and external APIs</li>
+            <li><strong>Data Processing Layer:</strong> Cleans, transforms, and prepares data for analysis using Apache Spark</li>
+            <li><strong>Modeling Layer:</strong> Implements various forecasting models including LSTM networks, Prophet, ARIMA, and ensemble methods</li>
+            <li><strong>API Layer:</strong> Provides RESTful APIs for integration with other systems</li>
+            <li><strong>Visualization Layer:</strong> Interactive dashboards built with React and D3.js</li>
+        </ul>
+
+        <div class="technologies-list">
+            <div class="technology-item">
+                <span class="tech-icon"><i data-lucide="layers"></i></span>
+                <span>TensorFlow</span>
+            </div>
+            <div class="technology-item">
+                <span class="tech-icon"><i data-lucide="server"></i></span>
+                <span>Apache Spark</span>
+            </div>
+            <div class="technology-item">
+                <span class="tech-icon"><i data-lucide="database"></i></span>
+                <span>PostgreSQL</span>
+            </div>
+            <div class="technology-item">
+                <span class="tech-icon"><i data-lucide="trending-up"></i></span> <span>Prophet</span>
+            </div>
+            <div class="technology-item">
+                <span class="tech-icon"><i data-lucide="code"></i></span>
+                <span>Python</span>
+            </div>
+            <div class="technology-item">
+                <span class="tech-icon"><i data-lucide="layout-dashboard"></i></span> <span>React</span>
+            </div>
+        </div>
+
+        <div class="project-charts">
+            <div class="chart-container">
+                <div class="chart-title">Forecast Accuracy Comparison</div>
+                <div class="chart-placeholder">
+                    [Interactive forecast accuracy chart placeholder]
+                </div>
+            </div>
+            <div class="chart-container">
+                <div class="chart-title">Inventory Optimization Results</div>
+                <div class="chart-placeholder">
+                    [Interactive inventory optimization chart placeholder]
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="project-section">
+        <h2 class="project-section-title">Implementation Process</h2>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <h3 class="timeline-title">Requirements Analysis & Data Exploration</h3>
+                <p class="project-text">
+                    Conducted thorough analysis of existing supply chain processes, identified key forecasting needs, and
+                    explored historical data to understand patterns, seasonality, and anomalies.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <h3 class="timeline-title">Model Development & Testing</h3>
+                <p class="project-text">
+                    Developed and benchmarked multiple forecasting models including LSTM networks, Prophet, ARIMA, and ensemble methods.
+                    Conducted extensive testing across various product categories and time horizons to identify optimal approaches.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <h3 class="timeline-title">Platform Development</h3>
+                <p class="project-text">
+                    Built the platform infrastructure using microservices architecture, implemented data pipelines, REST APIs,
+                    and developed interactive visualization dashboards for exploring forecasts and optimizations.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <h3 class="timeline-title">Integration & Deployment</h3>
+                <p class="project-text">
+                    Integrated the platform with existing ERP and inventory management systems. Deployed the solution
+                    incrementally across different product categories to validate performance and gather feedback.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <h3 class="timeline-title">Optimization & Scaling</h3>
+                <p class="project-text">
+                    Based on initial results, refined models and optimization algorithms. Scaled the solution to handle
+                    the entire product catalog and expanded to multiple distribution centers.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="project-section">
+        <h2 class="project-section-title">Results & Impact</h2>
+        <p class="project-text">
+            The implementation of the Predictive Analytics Platform delivered significant measurable benefits:
+        </p>
+
+        <ul class="project-text">
+            <li><strong>28% Improvement in Supply Chain Efficiency:</strong> Optimized ordering and distribution processes</li>
+            <li><strong>42% Reduction in Excess Inventory:</strong> More precise demand forecasting led to lower safety stock requirements</li>
+            <li><strong>95% Forecast Accuracy:</strong> Across most product categories for 7-day forecasts</li>
+            <li><strong>17% Decrease in Stockouts:</strong> Better anticipation of demand spikes</li>
+            <li><strong>$3.2M Annual Cost Savings:</strong> From reduced carrying costs and operational efficiencies</li>
+        </ul>
+
+        <p class="project-text">
+            Beyond the quantitative benefits, the platform has enabled the organization to respond more quickly to
+            changing market conditions, optimize promotion planning, and make more informed strategic decisions about
+            product assortment and distribution network design.
+        </p>
+    </div>
+
+    <div class="project-navigation">
+        {% if prev_project %} {# Check if prev_project data exists from Flask #}
+        <a href="{{ url_for('project_detail', project_id=prev_project.id) }}" class="nav-button prev">
+            <i data-lucide="arrow-left"></i>
+            <span>{{ prev_project.title }}</span> {# Display previous project title #}
+        </a>
+        {% else %}
+        <div class="nav-button-placeholder"></div> {# Optional placeholder for alignment #}
+        {% endif %}
+
+        {% if next_project %} {# Check if next_project data exists from Flask #}
+        <a href="{{ url_for('project_detail', project_id=next_project.id) }}" class="nav-button next">
+            <span>{{ next_project.title }}</span> {# Display next project title #}
+            <i data-lucide="arrow-right"></i>
+        </a>
+        {% else %}
+        <div class="nav-button-placeholder"></div> {# Optional placeholder for alignment #}
+        {% endif %}
+    </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Add any project-specific JavaScript here if needed
+    // For example, initializing charts if you add a library like Chart.js
+</script>
+{% endblock %}
+

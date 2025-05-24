@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+
+{% block hero %}
+<section id="hero" class="hero-section">
+    <div class="container hero-container">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span>Neerudi</span>
+                <span class="underlined">Sai Vikas</span>
+            </h1>
+            <h2 class="hero-subtitle">AI & Data Science Specialist</h2>
+            <p class="hero-description">Transforming complex data challenges into innovative AI solutions</p>
+            <div class="hero-buttons">
+                <a href="/#projects" class="btn btn-primary hero-btn-projects">VIEW PROJECTS</a> {# Added specific class #}
+                <a href="/#contact" class="btn btn-outline">GET IN TOUCH</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<section id="about" class="about-section">
+    <div class="container">
+        <h2 class="section-title"><span>About Me</span></h2>
+        <div class="about-content">
+            <div class="profile-image">
+                <div class="profile-front">
+                    <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="Profile Picture of Neerudi Sai Vikas" onerror="this.onerror=null;this.src='https://placehold.co/300x300/212529/F8F9FA?text=NSV';">
+                </div>
+                <div class="profile-back"></div>
+            </div>
+            <div class="about-text">
+                <p>I'm an AI and Data Science professional with expertise in Machine Learning, Natural Language Processing, and Deep Learning. My passion lies in building intelligent systems that can understand, learn, and adapt to solve complex real-world problems.</p>
+                <p>With a strong foundation in Computer Science from IIT Indore and specialized knowledge in AI from my ongoing MTech program, I combine theoretical depth with practical implementation skills to deliver impactful solutions.</p>
+                <p>I thrive in collaborative environments where I can apply my technical expertise to create innovative solutions that drive business value and technological advancement.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="education" class="education-section">
+    <div class="container">
+        <h2 class="section-title"><span>Education Journey</span></h2>
+        <div class="timeline">
+            <div class="timeline-line"></div>
+            {% for item in education %}
+            <div class="timeline-item {% if loop.index is odd %}left{% else %}right{% endif %}">
+                <div class="timeline-content">
+                    <div class="timeline-period">{{ item.period }}</div>
+                    <h3 class="timeline-title">{{ item.degree }}</h3>
+                    <div class="timeline-institution">{{ item.institution }}</div>
+                    <p class="timeline-description">{{ item.description }}</p>
+                    {% if item.achievements or item.courses %}
+                    <div class="timeline-details">
+                        {% if item.achievements %}
+                        <div class="timeline-achievements">
+                            <h4>Key Achievements</h4>
+                            <ul>{% for achievement in item.achievements %}<li>{{ achievement }}</li>{% endfor %}</ul>
+                        </div>
+                        {% endif %}
+                        {% if item.courses %}
+                        <div class="timeline-courses">
+                            <h4>Relevant Courses</h4>
+                            <ul>{% for course in item.courses %}<li>{{ course }}</li>{% endfor %}</ul>
+                        </div>
+                        {% endif %}
+                        <div class="timeline-toggle-buttons">
+                            {% if item.achievements %}<button class="timeline-toggle" data-target="achievements" aria-expanded="false"><span>Show Achievements</span><i data-lucide="chevron-down"></i></button>{% endif %}
+                            {% if item.courses %}<button class="timeline-toggle" data-target="courses" aria-expanded="false"><span>Show Courses</span><i data-lucide="chevron-down"></i></button>{% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="timeline-icon"><i data-lucide="{{ item.icon | default('graduation-cap') }}"></i></div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="skills" class="skills-section">
+    <div class="container">
+        <h2 class="section-title"><span>Technical Expertise</span></h2>
+        <div class="skills-grid">
+            {% for skill in skills %}
+            <div class="skill-card" tabindex="0">
+                 <div class="skill-card-inner">
+                    <div class="skill-card-front">
+                        <div class="skill-header">
+                            <div class="skill-icon"><i data-lucide="{{ skill.icon | default('cpu') }}"></i></div>
+                            <h3 class="skill-name">{{ skill.name }}</h3>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" data-level="{{ skill.level }}"></div>
+                            </div>
+                            <div class="progress-labels">
+                                <span>Beginner</span><span>Advanced</span><span>Expert</span>
+                            </div>
+                        </div>
+                        <p class="skill-hover-hint">View related projects & details</p>
+                    </div>
+                    <div class="skill-card-back">
+                        <h4 class="skill-back-title">Related Projects / Areas</h4>
+                        <ul class="skill-back-projects">
+                            {% if skill.name == 'Machine Learning' %}
+                                <li>Sentiment Analysis Engine</li><li>Predictive Analytics</li><li>Computer Vision System</li>
+                            {% elif skill.name == 'Natural Language Processing' %}
+                                <li>Sentiment Analysis Engine</li><li>Advanced Text Summarization</li>
+                            {% elif skill.name == 'Deep Learning' %}
+                                <li>Sentiment Analysis Engine</li><li>Computer Vision System</li><li>Generative Models</li>
+                            {% elif skill.name == 'Python' %}
+                                <li>Utilized in all core projects</li><li>Scripting & Automation</li>
+                            {% elif skill.name == 'TensorFlow/PyTorch' %}
+                                <li>Sentiment Analysis Engine</li><li>Computer Vision System</li><li>Custom Model Development</li>
+                            {% else %}
+                                <li>Core to various analytical tasks</li><li>Data pipeline development</li>
+                            {% endif %}
+                        </ul>
+                        <button class="skill-card-flip-btn" aria-label="Show skill details">More Info</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="additional-skills">
+            <h3>Additional Expertise</h3>
+            <div class="skill-tags">
+                {% for skill_tag in additional_skills %}
+                <span class="skill-tag">{{ skill_tag }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="projects" class="projects-section">
+    <div class="container">
+        <h2 class="section-title"><span>Featured Projects</span></h2>
+        <div class="projects-grid">
+            {% for project in projects %}
+            <div class="project-card project-card-square">
+                <div class="project-content">
+                    <div class="project-header">
+                        <h3 class="project-title">{{ project.title }}</h3>
+                        {% if project.id %}
+                            <div class="project-card-icon"><i data-lucide="{{ project.icon | default('folder-kanban') }}"></i></div>
+                        {% endif %}
+                    </div>
+                    <p class="project-description">{{ project.description }}</p>
+                    <div class="project-tags">
+                        {% for tag in project.tags %}<span class="project-tag">{{ tag }}</span>{% endfor %}
+                    </div>
+                    <div class="project-footer">
+                        <div class="project-links">
+                            {% if project.github %}<a href="{{ project.github }}" class="project-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository"><i data-lucide="github"></i></a>{% endif %}
+                            {% if project.medium %}<a href="{{ project.medium }}" class="project-link" target="_blank" rel="noopener noreferrer" aria-label="Medium Article"><i data-lucide="book-open"></i></a>{% endif %}
+                            {% if project.youtube %}<a href="{{ project.youtube }}" class="project-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube Video"><i data-lucide="youtube"></i></a>{% endif %}
+                            {% if project.demo %}<a href="{{ project.demo }}" class="project-link" target="_blank" rel="noopener noreferrer" aria-label="Live Demo/Link"><i data-lucide="external-link"></i></a>{% endif %}
+                        </div>
+                        <a href="{{ url_for('project_detail', project_id=project.id) }}" class="project-view-btn">
+                            <span>View Details</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {# "View All Projects" button and modal REMOVED #}
+    </div>
+</section>
+
+<section id="contact" class="contact-section">
+    <div class="container">
+        <h2 class="section-title"><span>Get In Touch</span></h2>
+        <div class="contact-content">
+            <div class="contact-form">
+                <form id="contactForm" action="#" method="POST">
+                    <div class="form-group"><label for="name">Name</label><input type="text" id="name" name="name" placeholder="Your Name" required></div>
+                    <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" placeholder="your.email@example.com" required></div>
+                    <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" rows="5" placeholder="Your message here..." required></textarea></div>
+                    <button type="submit" class="btn btn-primary contact-submit-btn">SEND MESSAGE</button> {# Added specific class #}
+                </form>
+            </div>
+            <div class="contact-info">
+                <div class="contact-card">
+                    <h3>Connect With Me</h3>
+                    <div class="contact-methods">
+                        <a href="mailto:neerudisaivikas@gmail.com" class="contact-method"><div class="contact-icon"><i data-lucide="mail"></i></div><div class="contact-detail"><span class="contact-label">Email</span><span class="contact-value">neerudisaivikas@gmail.com</span></div></a>
+                        <a href="https://linkedin.com/in/neerudi-sai-vikas" class="contact-method" target="_blank" rel="noopener noreferrer"><div class="contact-icon"><i data-lucide="linkedin"></i></div><div class="contact-detail"><span class="contact-label">LinkedIn</span><span class="contact-value">/in/neerudi-sai-vikas</span></div></a>
+                        <a href="https://github.com/kee1bo" class="contact-method" target="_blank" rel="noopener noreferrer"><div class="contact-icon"><i data-lucide="github"></i></div><div class="contact-detail"><span class="contact-label">GitHub</span><span class="contact-value">/kee1bo</span></div></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

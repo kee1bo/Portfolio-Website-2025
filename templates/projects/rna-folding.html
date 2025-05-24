@@ -1,0 +1,488 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+{# Link the shared project detail CSS #}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/project-details.css') }}">
+<style>
+    /* Refined styles for professional documentation look */
+
+    /* --- Layout Overrides (Attempting to fix narrow content) --- */
+    /* These rules might be needed if project-details.css restricts width */
+    /* Adjust or remove if they conflict with your project-details.css */
+    .project-detail-content {
+        /* Ensure the grid takes available space */
+        width: 100%;
+    }
+    .project-description {
+        /* Allow the description block to use its allocated grid space */
+        width: 100%;
+        max-width: none; /* Remove potential max-width constraints */
+    }
+    /* --- End Layout Overrides --- */
+
+
+    /* Consistent Section Styling */
+    .project-description h2 {
+        margin-top: 4rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        /* Assuming underline comes from project-details.css */
+    }
+     .project-description h2::after { /* Ensure underline style is present */
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background-color: var(--color-accent);
+    }
+
+    .project-description h3 {
+        font-size: 1.8rem;
+        color: var(--color-text);
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .project-description p, .project-description li {
+        color: var(--color-text-secondary);
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+    }
+     .project-description ul {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 2rem;
+    }
+    .project-description li {
+        position: relative;
+        padding-left: 2rem;
+        margin-bottom: 1rem;
+    }
+    .project-description li::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0.7rem;
+        width: 6px;
+        height: 6px;
+        background-color: var(--color-accent);
+        border-radius: 50%;
+    }
+    .project-description strong {
+        color: var(--color-text);
+        font-weight: 600;
+    }
+    .project-description a {
+        color: var(--color-accent);
+        text-decoration: none;
+        border-bottom: 1px dashed var(--color-accent);
+        transition: all 0.3s ease;
+    }
+    .project-description a:hover {
+        color: #fff;
+        background-color: rgba(255, 0, 0, 0.1);
+        border-bottom-style: solid;
+    }
+
+    /* Project Summary Box */
+    .project-summary {
+        background-color: var(--color-card); /* Match sidebar card bg */
+        border: 1px solid var(--color-border); /* Add border */
+        border-left: 4px solid var(--color-accent);
+        padding: 2rem;
+        margin: 2rem 0 3rem 0; /* Adjust margin */
+        font-size: 1.6rem; /* Slightly smaller */
+        line-height: 1.7;
+        color: var(--color-text-secondary); /* Use secondary text color */
+    }
+    .project-summary strong { /* Highlight within summary */
+         color: var(--color-text);
+    }
+
+
+    /* Code Box - Align with card style */
+    .code-box {
+        background-color: var(--color-background-alt); /* Slightly different bg */
+        border: 1px solid var(--color-border);
+        padding: 1.5rem 2rem;
+        margin: 2rem 0;
+        font-family: monospace;
+        font-size: 1.3rem; /* Slightly smaller */
+        color: var(--color-text-secondary);
+        white-space: pre-wrap;
+        word-break: break-all;
+        max-height: 180px;
+        overflow-y: auto;
+        border-radius: 3px;
+    }
+     .code-box span { /* Highlighting within code */
+        color: var(--color-text);
+        background-color: rgba(255, 255, 255, 0.05);
+        padding: 0.1em 0.3em;
+        border-radius: 2px;
+     }
+
+    /* Visualization Box Styling - Align with card style */
+    .visualization-box {
+        background-color: var(--color-card); /* Match sidebar card bg */
+        border: 1px solid var(--color-border);
+        padding: 2rem;
+        margin: 3rem 0;
+        text-align: center;
+        border-radius: 3px;
+    }
+    .visualization-box h3 {
+        font-size: 1.6rem;
+        color: var(--color-text);
+        margin-top: 0; /* Remove top margin for title inside box */
+        margin-bottom: 1.5rem;
+        font-weight: 500;
+        padding-bottom: 1rem; /* Add padding below title */
+        border-bottom: 1px solid var(--color-border); /* Separator line */
+    }
+    .visualization-box svg {
+        display: block;
+        margin: 1.5rem auto; /* Adjust margin */
+        max-width: 100%;
+        height: auto;
+    }
+    .visualization-caption {
+        font-size: 1.3rem;
+        color: var(--color-text-secondary);
+        margin-top: 1.5rem;
+        font-style: italic;
+        line-height: 1.5;
+    }
+
+    /* RNA Pairing SVG */
+    .rna-pairing-svg .base {
+        font-family: monospace;
+        font-size: 13px;
+        fill: var(--color-text-secondary);
+        text-anchor: middle;
+    }
+    .rna-pairing-svg .base.highlight {
+         fill: var(--color-text);
+         font-weight: bold;
+    }
+    .rna-pairing-svg .pairing-arc {
+        fill: none;
+        stroke-width: 1.5;
+        opacity: 0.6;
+    }
+    .rna-pairing-svg .pair-AU { stroke: #ffcc00; }
+    .rna-pairing-svg .pair-GC { stroke: var(--color-accent); }
+    .rna-pairing-svg .pair-GU { stroke: #4a9eff; }
+
+    /* Architecture SVG */
+    .architecture-svg .block {
+        fill: var(--color-background-alt); /* Use alt background */
+        stroke: var(--color-border);
+        stroke-width: 1;
+        rx: 3;
+    }
+    .architecture-svg .block.ensemble {
+        stroke: var(--color-accent);
+        stroke-width: 1.5;
+        fill: var(--color-card); /* Slightly different fill */
+    }
+    .architecture-svg .arrow {
+        stroke: var(--color-text-secondary);
+        stroke-width: 1;
+        marker-end: url(#arrowhead);
+        opacity: 0.7;
+    }
+    .architecture-svg text {
+        fill: var(--color-text-secondary);
+        font-size: 10px;
+        text-anchor: middle;
+    }
+    .architecture-svg .block-title {
+         fill: var(--color-text);
+         font-size: 11px;
+         font-weight: 500;
+    }
+    .architecture-svg .label {
+        font-size: 9px;
+        fill: var(--color-text-secondary);
+    }
+
+     /* Performance Chart SVG */
+    .perf-chart-svg .bar {
+        fill: var(--color-accent);
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+    }
+    .perf-chart-svg .bar:hover {
+        opacity: 1.0;
+    }
+    .perf-chart-svg .axis, .perf-chart-svg .grid-line {
+        stroke: var(--color-border);
+        stroke-width: 1;
+        opacity: 0.6;
+    }
+    .perf-chart-svg text {
+        fill: var(--color-text-secondary);
+        font-size: 9px;
+    }
+    .perf-chart-svg .axis-label {
+        font-size: 10px; text-anchor: middle;
+    }
+    .perf-chart-svg .label {
+        text-anchor: middle;
+    }
+     .perf-chart-svg .value {
+        text-anchor: middle;
+        fill: var(--color-text);
+        font-size: 9px;
+        font-weight: bold;
+    }
+
+    /* Metric Highlight */
+    .metric-highlight {
+        color: var(--color-accent);
+        font-weight: 600;
+        font-size: 1.6rem;
+        background-color: rgba(255, 0, 0, 0.1);
+        padding: 0.1em 0.4em;
+        border-radius: 3px;
+    }
+    .results-summary p {
+        margin-bottom: 1.5rem;
+    }
+
+    /* Ensure sidebar elements defined in project-details.css look consistent */
+    /* These styles might need adjustment based on project-details.css */
+    .sidebar-card {
+        background-color: var(--color-card);
+        border: 1px solid var(--color-border);
+        /* padding: 2.5rem; */ /* Assuming padding is set */
+        margin-bottom: 3rem;
+        transition: all var(--transition-speed) ease;
+    }
+     .sidebar-card:hover {
+        border-color: var(--color-accent);
+        box-shadow: var(--box-shadow-hover);
+    }
+     .sidebar-card h3 {
+        /* font-size: 1.8rem; */ /* Assuming size is set */
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--color-border);
+    }
+     .tech-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    .tech-tag {
+        padding: 0.8rem 1.5rem;
+        background-color: var(--color-background-alt); /* Match code box */
+        border: 1px solid var(--color-border);
+        font-size: 1.4rem;
+        transition: all var(--transition-speed) ease;
+        color: var(--color-text-secondary);
+        border-radius: 3px;
+    }
+    .tech-tag:hover {
+        background-color: var(--color-accent);
+        color: #fff;
+        transform: translateY(-3px);
+        border-color: var(--color-accent);
+    }
+    .sidebar-links {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    .sidebar-link {
+        display: flex;
+        align-items: center;
+        padding: 1rem 1.5rem; /* Adjust padding */
+        border: 1px solid var(--color-border);
+        transition: all var(--transition-speed) ease;
+        color: var(--color-text-secondary);
+        background-color: var(--color-background-alt);
+        border-radius: 3px;
+    }
+    .sidebar-link:hover {
+        background-color: var(--color-accent);
+        color: #fff;
+        border-color: var(--color-accent);
+        transform: translateX(5px);
+    }
+     .sidebar-link i {
+        margin-right: 1.5rem;
+        width: 1.6rem; /* Ensure icon size consistency */
+        height: 1.6rem;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="project-detail-page">
+    <div class="project-hero">
+        <div class="container">
+            <a href="{{ url_for('index') }}#projects" class="back-button">
+                <i data-lucide="arrow-left"></i>
+                <span>Back to Projects</span>
+            </a>
+            <h1 class="project-title">{{ project.title }}</h1>
+            <p class="project-subtitle">{{ project.description }}</p>
+            <div class="project-tags">
+                 {% for tag in project.tags %}
+                 <span class="project-tag">{{ tag }}</span>
+                 {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="project-detail-content">
+            <div class="project-description">
+
+                <h2>Project Summary</h2>
+                <p class="project-summary">
+                    This project tackled the <a href="https://www.kaggle.com/c/stanford-covid-vaccine" target="_blank" rel="noopener noreferrer">Stanford OpenVaccine Kaggle competition</a> by developing an ensemble of deep learning models (including GNNs and LSTMs/Transformers) to predict mRNA degradation rates. The goal was to improve mRNA vaccine stability by accurately forecasting degradation based on sequence and structural data, evaluated using the MCRMSE metric. The approach achieved competitive results, demonstrating the effectiveness of combining diverse models for complex bioinformatics tasks.
+                </p>
+
+                <h2>Introduction & Background</h2>
+                <p>The stability of messenger RNA (mRNA) is a critical factor in the development of effective vaccines and therapeutics. Unstable mRNA degrades quickly, reducing its efficacy. The OpenVaccine competition challenged participants to predict the degradation rate at specific points along an mRNA molecule, providing valuable insights for designing more robust candidates.</p>
+                <p>The core task involved predicting five different experimental degradation measurements for the first 68 nucleotides, given the full sequence (107 nucleotides) and its predicted secondary structure.</p>
+
+                <h2>Methodology</h2>
+                <h3>Input Data & Features</h3>
+                <p>The models were trained on RNA sequences, predicted secondary structures (dot-bracket notation), and predicted loop types. Example:</p>
+                <div class="code-box">Sequence:  GGAAA<span>AU</span>GC<span>G</span>AC<span>U</span><span>U</span>GAG<span>U</span>A<span>C</span>GGAAAAG<span>U</span>AC...
+Structure: .....(((.<span>(</span><span>(</span>...<span>)</span><span>)</span><span>)</span>)))........<span>(</span>...
+Loop Type: EEEEESSSHHH<span>I</span><span>S</span><span>S</span>SSSSEEBBBBBSEEE...</div>
+                <p>Key features engineered or learned included:</p>
+                <ul>
+                    <li>Sequence k-mers and learned sequence embeddings.</li>
+                    <li>Structural properties like base pairing status, loop type encodings, and distances within the structure.</li>
+                    <li>Graph representations for GNNs, capturing connectivity.</li>
+                </ul>
+
+                 <div class="visualization-box">
+                    <h3>Illustrative Base Pairing</h3>
+                    <svg class="rna-pairing-svg" viewBox="0 0 220 90" >
+                        <g transform="translate(10, 30)">
+                            <text x="0" y="0" class="base">G</text> <text x="15" y="0" class="base">G</text> <text x="30" y="0" class="base">A</text> <text x="45" y="0" class="base">A</text> <text x="60" y="0" class="base highlight">A</text> <text x="75" y="0" class="base highlight">U</text> <text x="90" y="0" class="base">G</text> <text x="105" y="0" class="base highlight">C</text> <text x="120" y="0" class="base">G</text> <text x="135" y="0" class="base highlight">G</text> <text x="150" y="0" class="base">A</text> <text x="165" y="0" class="base highlight">C</text> <text x="180" y="0" class="base highlight">U</text> <text x="195" y="0" class="base">U</text>
+                            <path d="M 67.5 5 A 60 60 0 0 1 187.5 5" class="pairing-arc pair-AU" title="A(4)-U(12) Pair"></path> <path d="M 82.5 5 A 45 45 0 0 1 172.5 5" class="pairing-arc pair-GU" title="U(5)-C(11) Pair"></path> <path d="M 112.5 5 A 15 15 0 0 1 142.5 5" class="pairing-arc pair-GC" title="C(7)-G(9) Pair"></path> </g>
+                        <text x="110" y="80" text-anchor="middle" class="visualization-caption">SVG illustrating paired bases (colored arcs) based on dot-bracket notation.</text>
+                    </svg>
+                </div>
+
+                <h3>Modeling Approach</h3>
+                <p>An **ensemble learning** strategy was employed, combining predictions from models optimized for different aspects of the data:</p>
+                <ul>
+                    <li><strong>Sequence Models (LSTM/Transformer):</strong> Captured linear sequence patterns.</li>
+                    <li><strong>Structure Models (GNN):</strong> Directly learned from the predicted 2D graph structure.</li>
+                    <li><strong>Feature Models (Gradient Boosting):</strong> Leveraged specific engineered features.</li>
+                </ul>
+                <p>This multi-pronged approach aimed to create a more robust and accurate final prediction by averaging the outputs.</p>
+
+                 <div class="visualization-box">
+                    <h3>Ensemble Model Flow</h3>
+                     <svg class="architecture-svg" viewBox="0 0 350 180">
+                         <defs> <marker id="arrowhead" markerWidth="7" markerHeight="5" refX="0" refY="2.5" orient="auto"> <polygon points="0 0, 7 2.5, 0 5" fill="var(--color-text-secondary)" /> </marker> </defs>
+                        <rect x="10" y="70" width="80" height="40" class="block" /> <text x="50" y="90" class="block-title">Input Data</text> <text x="50" y="102" class="label">(Seq+Struct)</text>
+                        <rect x="130" y="10" width="90" height="40" class="block" /> <text x="175" y="28" class="block-title">LSTM / Transformer</text> <text x="175" y="40" class="label">(Sequence)</text>
+                        <rect x="130" y="70" width="90" height="40" class="block" /> <text x="175" y="88" class="block-title">GNN</text> <text x="175" y="100" class="label">(Structure)</text>
+                        <rect x="130" y="130" width="90" height="40" class="block" /> <text x="175" y="148" class="block-title">Gradient Boosting</text> <text x="175" y="160" class="label">(Features)</text>
+                        <rect x="250" y="70" width="80" height="40" class="block ensemble" /> <text x="290" y="88" class="block-title">Ensemble</text> <text x="290" y="100" class="label">(Averaging)</text>
+                        <line x1="90" y1="90" x2="130" y2="30" class="arrow" /> <line x1="90" y1="90" x2="130" y2="90" class="arrow" /> <line x1="90" y1="90" x2="130" y2="150" class="arrow" /> <line x1="220" y1="30" x2="250" y2="80" class="arrow" /> <line x1="220" y1="90" x2="250" y2="90" class="arrow" /> <line x1="220" y1="150" x2="250" y2="100" class="arrow" />
+                     </svg>
+                     <p class="visualization-caption">Input data processed by diverse models, with outputs combined for the final prediction.</p>
+                 </div>
+
+                <h2>Results & Conclusion</h2>
+                <div class="results-summary">
+                    <p>The ensemble strategy yielded strong results, demonstrating the value of combining diverse modeling approaches. The final Mean Columnwise Root Mean Squared Error (MCRMSE) achieved on the competition's public leaderboard was approximately <strong class="metric-highlight">0.26</strong> (example score, lower is better).</p>
+                </div>
+
+                 <div class="visualization-box">
+                    <h3>Illustrative Performance (MCRMSE per Target)</h3>
+                    <svg class="perf-chart-svg" viewBox="0 0 300 150">
+                         <defs> <style> .perf-chart-svg .axis-label { font-size: 9px; text-anchor: middle; fill: var(--color-text-secondary); } .perf-chart-svg .grid-line { stroke: var(--color-border); stroke-width: 0.5; opacity: 0.5; } </style> </defs>
+                        <line x1="40" y1="10" x2="40" y2="120" class="axis" /> <line x1="40" y1="120" x2="290" y2="120" class="axis" /> <line x1="40" y1="95" x2="290" y2="95" class="grid-line" /> <line x1="40" y1="70" x2="290" y2="70" class="grid-line" /> <line x1="40" y1="45" x2="290" y2="45" class="grid-line" /> <line x1="40" y1="20" x2="290" y2="20" class="grid-line" />
+                        <text x="35" y="120" class="label">0.0</text> <text x="35" y="95" class="label">0.1</text> <text x="35" y="70" class="label">0.2</text> <text x="35" y="45" class="label">0.3</text> <text x="35" y="20" class="label">0.4</text> <text x="15" y="70" transform="rotate(-90, 15, 70)" class="axis-label">MCRMSE</text>
+                        <g> <rect x="50" y="75" width="30" height="45" class="bar"><title>Reactivity: ~0.18</title></rect> <text x="65" y="130" class="label">reactivity</text> <text x="65" y="70" class="value">0.18</text> </g>
+                        <g> <rect x="90" y="50" width="30" height="70" class="bar"><title>deg_Mg_pH10: ~0.28</title></rect> <text x="105" y="130" class="label">Mg_pH10</text> <text x="105" y="45" class="value">0.28</text> </g>
+                        <g> <rect x="130" y="45" width="30" height="75" class="bar"><title>deg_Mg_50C: ~0.30</title></rect> <text x="145" y="130" class="label">Mg_50C</text> <text x="145" y="40" class="value">0.30</text> </g>
+                        <g> <rect x="170" y="65" width="30" height="55" class="bar"><title>deg_pH10: ~0.22</title></rect> <text x="185" y="130" class="label">pH10</text> <text x="185" y="60" class="value">0.22</text> </g>
+                        <g> <rect x="210" y="40" width="30" height="80" class="bar"><title>deg_50C: ~0.32</title></rect> <text x="225" y="130" class="label">50C</text> <text x="225" y="35" class="value">0.32</text> </g>
+                    </svg>
+                     <p class="visualization-caption">Example MCRMSE scores per target variable (lower indicates less error).</p>
+                </div>
+
+                <p>This project successfully applied advanced machine learning to a challenging bioinformatics problem. It highlighted the importance of integrating diverse data types (sequence, structure) and model architectures for predicting complex biological phenomena like mRNA degradation, contributing valuable insights for potential vaccine design improvements.</p>
+
+            </div> <div class="project-sidebar">
+                <div class="sidebar-card tech-stack-card">
+                    <h3>Technologies Used</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">PyTorch / TensorFlow</span>
+                        <span class="tech-tag">Pandas</span>
+                        <span class="tech-tag">NumPy</span>
+                        <span class="tech-tag">Scikit-learn</span>
+                        <span class="tech-tag">LightGBM / XGBoost</span>
+                        <span class="tech-tag">GNN Libraries</span>
+                        <span class="tech-tag">Hugging Face Transformers</span>
+                        <span class="tech-tag">Kaggle API</span>
+                        <span class="tech-tag">Matplotlib / Seaborn</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-card project-links-card">
+                    <h3>Project Resources</h3>
+                    <div class="sidebar-links">
+                        {% if project.github %}
+                        <a href="{{ project.github }}" class="sidebar-link" target="_blank" rel="noopener noreferrer">
+                            <i data-lucide="github"></i> <span>GitHub Repository</span>
+                        </a>
+                        {% endif %}
+                         {% if project.demo %}
+                        <a href="{{ project.demo }}" class="sidebar-link" target="_blank" rel="noopener noreferrer">
+                            <i data-lucide="trophy"></i> <span>Kaggle Competition</span>
+                        </a>
+                        {% endif %}
+                         <a href="https://www.kaggle.com/c/stanford-covid-vaccine/discussion" class="sidebar-link" target="_blank" rel="noopener noreferrer">
+                            <i data-lucide="messages-square"></i> <span>Kaggle Discussion</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div> </div> <div class="project-navigation">
+            {% if prev_project %}
+            <a href="{{ url_for('project_detail', project_id=prev_project.id) }}" class="nav-button prev">
+                <i data-lucide="arrow-left"></i>
+                <span>{{ prev_project.title }}</span>
+            </a>
+            {% else %}<div class="nav-button is-disabled" aria-hidden="true"></div>{% endif %}
+
+            {% if next_project %}
+            <a href="{{ url_for('project_detail', project_id=next_project.id) }}" class="nav-button next">
+                <span>{{ next_project.title }}</span>
+                <i data-lucide="arrow-right"></i>
+            </a>
+            {% else %}<div class="nav-button is-disabled" aria-hidden="true"></div>{% endif %}
+        </div>
+
+    </div> </div> {% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("Professional Doc Style RNA Folding project page loaded.");
+        if (typeof lucide !== 'undefined') {
+             lucide.createIcons();
+        }
+    });
+</script>
+{% endblock %}

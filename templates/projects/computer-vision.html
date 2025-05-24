@@ -1,0 +1,396 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<style>
+    /* Styles specific to this project page */
+    .project-hero {
+        height: 400px;
+        /* Placeholder background - replace with actual image */
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{{ url_for('static', filename='images/projects/computer-vision-bg.jpg') }}');
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        color: #fff; /* Ensure text is visible */
+    }
+
+    .project-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at center, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.6) 100%);
+    }
+
+    .project-icon {
+        font-size: 120px;
+        color: rgba(255, 255, 255, 0.1);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+    }
+
+    .project-title-container {
+        text-align: center;
+        z-index: 2;
+        max-width: 800px;
+        padding: 0 20px;
+    }
+
+    .project-title {
+        font-size: 48px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #fff;
+    }
+
+    .project-subtitle {
+        font-size: 20px;
+        font-weight: 300;
+        color: #ddd;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .project-tags {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .project-tag {
+        padding: 6px 16px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        font-size: 14px;
+        color: #fff;
+        border-radius: 0;
+    }
+
+    .project-content {
+        max-width: 900px;
+        margin: 60px auto;
+        padding: 0 20px;
+    }
+
+    .project-section {
+        margin-bottom: 60px;
+    }
+
+    .project-section-title {
+        font-size: 28px;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 15px;
+        color: var(--color-text);
+    }
+
+    .project-section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background-color: var(--color-accent);
+    }
+
+    .project-image-container {
+        margin: 30px 0;
+        border: 1px solid var(--color-border);
+        overflow: hidden;
+    }
+
+    .project-image {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .project-text {
+        margin-bottom: 20px;
+        line-height: 1.7;
+        color: var(--color-text-secondary);
+        font-size: 1.6rem;
+    }
+     .project-text ul {
+        list-style: disc;
+        padding-left: 3rem;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    .project-text li {
+        margin-bottom: 1rem;
+    }
+    .project-text strong {
+        color: var(--color-text);
+    }
+
+    .project-results {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust min size */
+        gap: 30px;
+        margin-top: 30px;
+    }
+
+    .result-card {
+        background-color: var(--color-card);
+        border: 1px solid var(--color-border);
+        padding: 25px; /* Increased padding */
+        text-align: center;
+        transition: all var(--transition-speed) ease;
+    }
+    .result-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--box-shadow-hover);
+        border-color: var(--color-accent);
+    }
+
+    .result-value {
+        font-size: 48px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--color-accent); /* Use accent color */
+    }
+
+    .result-label {
+        font-size: 16px;
+        color: var(--color-text-secondary);
+    }
+
+    .technologies-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .technology-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background-color: var(--color-card);
+        border: 1px solid var(--color-border);
+        padding: 10px 15px;
+        color: var(--color-text-secondary);
+        transition: all var(--transition-speed) ease;
+    }
+     .technology-item:hover {
+        color: var(--color-accent);
+        border-color: var(--color-accent);
+        transform: translateY(-3px);
+    }
+
+    .tech-icon {
+        color: inherit;
+    }
+    .tech-icon svg {
+        width: 1.6rem;
+        height: 1.6rem;
+    }
+
+    .project-navigation {
+        margin-top: 60px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding-top: 30px;
+        border-top: 1px solid var(--color-border);
+    }
+
+    .nav-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 20px;
+        border: 1px solid var(--color-border);
+        color: var(--color-text-secondary);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        background-color: var(--color-card);
+        flex-grow: 1;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .nav-button:hover {
+        background-color: var(--color-accent);
+        border-color: var(--color-accent);
+        color: #fff;
+        transform: translateY(-3px);
+        box-shadow: var(--box-shadow-hover);
+    }
+
+    .nav-button span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 200px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="project-hero">
+    <div class="project-icon">
+        <i data-lucide="eye"></i>
+    </div>
+    <div class="project-title-container">
+        <h1 class="project-title">{{ project.title }}</h1>
+        <p class="project-subtitle">{{ project.description }}</p>
+
+        <div class="project-tags">
+            {% for tag in project.tags %}
+            <span class="project-tag">{{ tag }}</span>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="project-content">
+    <div class="project-section">
+        <h2 class="project-section-title">Project Overview</h2>
+        <p class="project-text">
+            This computer vision system was developed to solve inventory management challenges in retail environments.
+            By leveraging deep learning and object detection algorithms, the system can accurately track products on shelves,
+            identify misplaced items, and detect stockouts in real-time.
+        </p>
+        <p class="project-text">
+            The system uses a network of strategically placed cameras throughout a store to continuously monitor inventory levels.
+            Advanced object detection models identify products with high accuracy, even in varying lighting conditions and when
+            partially obscured.
+        </p>
+
+        <div class="project-image-container">
+             <img src="{{ url_for('static', filename='images/placeholder_800x400.png') }}" alt="Computer Vision System Architecture" class="project-image" onerror="this.onerror=null;this.src='https://placehold.co/800x400/111111/333333?text=System+Architecture';">
+        </div>
+    </div>
+
+    <div class="project-section">
+        <h2 class="project-section-title">Technical Approach</h2>
+        <p class="project-text">
+            The project was implemented using a combination of state-of-the-art computer vision techniques and deep learning models:
+        </p>
+
+        <ul class="project-text">
+            <li><strong>Object Detection:</strong> Utilized a custom-trained YOLOv5 model to detect and classify products</li>
+            <li><strong>Tracking:</strong> Implemented DeepSORT algorithm for consistent object tracking across video frames</li>
+            <li><strong>Data Pipeline:</strong> Built scalable data processing pipeline using Kafka and Spark for real-time video analysis</li>
+            <li><strong>Model Optimization:</strong> Applied TensorRT for model optimization and faster inference times on NVIDIA GPUs</li>
+            <li><strong>Edge Deployment:</strong> Deployed optimized models on edge devices (like NVIDIA Jetson) for distributed processing</li>
+        </ul>
+
+        <div class="technologies-list">
+            <div class="technology-item">
+                <span class="tech-icon"><i data-lucide="layers"></i></span> <span>TensorFlow</span>
+            </div>
+            <div class="technology-item">
+                <span class="tech-icon"><i data-lucide="camera"></i></span> <span>OpenCV</span>
+            </div>
+            <div class="technology-item">
+                <span class="tech-icon"><i data-lucide="scan-line"></i></span> <span>YOLOv5</span>
+            </div>
+            <div class="technology-item">
+                <span class="tech-icon"><i data-lucide="move-horizontal"></i></span> <span>DeepSORT</span>
+            </div>
+            <div class="technology-item">
+                <span class="tech-icon"><i data-lucide="zap"></i></span> <span>TensorRT</span>
+            </div>
+            <div class="technology-item">
+                <span class="tech-icon"><i data-lucide="code"></i></span>
+                <span>Python</span>
+            </div>
+             <div class="technology-item">
+                <span class="tech-icon"><i data-lucide="server"></i></span>
+                <span>Kafka</span>
+            </div>
+             <div class="technology-item">
+                <span class="tech-icon"><i data-lucide="hard-drive"></i></span> <span>NVIDIA Jetson</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="project-section">
+        <h2 class="project-section-title">Key Challenges</h2>
+        <p class="project-text">
+            Developing this system presented several significant challenges:
+        </p>
+
+        <ul class="project-text">
+            <li><strong>Varying Lighting Conditions:</strong> Retail environments have inconsistent lighting that affects detection accuracy. Addressed using data augmentation (brightness, contrast changes) and robust model training.</li>
+            <li><strong>Product Similarity:</strong> Many products have similar packaging that makes classification difficult. Solved by fine-tuning the model on highly specific product datasets and using higher resolution inputs.</li>
+            <li><strong>Occlusion:</strong> Products often overlap or are partially hidden from view. Mitigated by training the model to recognize partially visible objects and using tracking algorithms to maintain identity.</li>
+            <li><strong>Real-time Processing:</strong> The system needed to operate in real-time with minimal latency. Achieved through model optimization (TensorRT) and edge deployment.</li>
+            <li><strong>Scale:</strong> Solution needed to scale across multiple cameras and store locations. Handled via a distributed architecture and efficient data streaming (Kafka).</li>
+        </ul>
+
+    </div>
+
+    <div class="project-section">
+        <h2 class="project-section-title">Results & Impact</h2>
+
+        <div class="project-results">
+            <div class="result-card">
+                <div class="result-value">35%</div>
+                <div class="result-label">Reduction in inventory errors</div>
+            </div>
+            <div class="result-card">
+                <div class="result-value">98.7%</div>
+                <div class="result-label">Product detection accuracy</div>
+            </div>
+            <div class="result-card">
+                <div class="result-value">~25 FPS</div> <div class="result-label">Processing Speed (on Edge)</div>
+            </div>
+             <div class="result-card">
+                <div class="result-value">70%+</div>
+                <div class="result-label">Reduction in manual audit time</div>
+            </div>
+        </div>
+
+        <p class="project-text">
+            The implemented system has significantly improved inventory management efficiency, reducing manual audit time by
+            over 70% and enabling staff to focus on customer service rather than inventory checks. The real-time nature of
+            the system allows for immediate corrective actions, leading to better product availability and customer satisfaction.
+        </p>
+
+        <p class="project-text">
+            Additionally, the data collected by the system provides valuable insights into customer shopping patterns and
+            product interaction (e.g., dwell time heatmaps), which has informed better store layout decisions and promotional strategies.
+        </p>
+    </div>
+
+    <div class="project-navigation">
+        {% if prev_project %} {# Check if prev_project data exists from Flask #}
+        <a href="{{ url_for('project_detail', project_id=prev_project.id) }}" class="nav-button prev">
+            <i data-lucide="arrow-left"></i>
+            <span>{{ prev_project.title }}</span> {# Display previous project title #}
+        </a>
+        {% else %}
+        <div class="nav-button-placeholder"></div> {# Optional placeholder for alignment #}
+        {% endif %}
+
+        {% if next_project %} {# Check if next_project data exists from Flask #}
+        <a href="{{ url_for('project_detail', project_id=next_project.id) }}" class="nav-button next">
+            <span>{{ next_project.title }}</span> {# Display next project title #}
+            <i data-lucide="arrow-right"></i>
+        </a>
+        {% else %}
+        <div class="nav-button-placeholder"></div> {# Optional placeholder for alignment #}
+        {% endif %}
+    </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    {# Add specific JS if needed #}
+{% endblock %}
