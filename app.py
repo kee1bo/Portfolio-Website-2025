@@ -88,10 +88,7 @@ education = [
         "description": "Specializing in advanced machine learning algorithms, deep learning architectures, and large-scale data processing techniques with a focus on practical applications in industry and research.",
         "achievements": [
             "Ongoing research on transformer architectures for multimodal learning",
-            "Working on a novel approach to few-shot learning in computer vision",
-            "Published paper on efficient attention mechanisms in ICLR 2024",
-            "Teaching assistant for Advanced Deep Learning course",
-            "Awarded departmental scholarship for outstanding academic performance"
+            "Working on a novel approach to approach for ARC Competition in Kaggle",
         ],
         "courses": [
             "Advanced Deep Learning",
@@ -108,11 +105,7 @@ education = [
         "period": "2016 - 2022",
         "description": "Gained strong foundations in computer science principles, algorithms, data structures, and software engineering practices with a focus on AI applications and system design.",
         "achievements": [
-            "Graduated with honors, top 5% of class",
-            "Led research project on neural network optimization",
-            "Internship at Microsoft Research on reinforcement learning",
-            "Received Best Undergraduate Thesis Award",
-            "Published 2 papers in top-tier conferences"
+            "Led research project on the project 'Permanent vs Determinant' exploring matrix computations",
         ],
         "courses": [
             "Data Structures and Algorithms",
@@ -124,15 +117,13 @@ education = [
         "icon": "award"
     },
     {
-        "degree": "AI Research Certificate Program",
-        "institution": "Stanford University (Online)",
-        "period": "2023",
-        "description": "Intensive six-month program focused on cutting-edge AI research methodologies, advanced neural network architectures, and practical implementation of research papers.",
+        "degree": "Self Paced Online Learning",
+        "institution": "Project Based Learning",
+        "period": "2023-till now",
+        "description": "Focused on cutting-edge AI research methodologies, advanced neural network architectures, and practical implementation of research papers.",
         "achievements": [
-            "Completed with distinction (98% score)",
             "Implemented 5 state-of-the-art models from recent research papers",
             "Final project selected for showcase in program highlights",
-            "Mentored by leading researchers in the field"
         ],
         "courses": [
             "Research Methods in AI",
