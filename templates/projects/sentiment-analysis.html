@@ -6,7 +6,7 @@
     .project-hero {
         height: 400px;
         /* Placeholder background - replace with actual image */
-        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{{ url_for('static', filename='images/projects/sentiment-analysis-bg.jpg') }}');
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), var(--color-background-alt); /* Fallback background */
         background-size: cover;
         background-position: center;
         display: flex;
@@ -323,6 +323,12 @@
         border: 1px solid var(--color-border);
         padding: 10px;
         background-color: var(--color-card);
+        /* Added for when image is commented out */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 150px; /* Give some height if image is missing */
+        color: var(--color-text-muted);
     }
 
     .architecture-diagram img {
@@ -495,7 +501,7 @@
         </ul>
 
         <div class="architecture-diagram">
-             <img src="{{ url_for('static', filename='images/placeholder_800x400.png') }}" alt="Sentiment Analysis Engine Architecture" onerror="this.onerror=null;this.src='https://placehold.co/800x400/111111/333333?text=Architecture+Diagram';">
+             <span>[Architecture Diagram Placeholder Removed]</span>
         </div>
 
         <div class="technologies-list">

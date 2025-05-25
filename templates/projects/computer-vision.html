@@ -6,7 +6,6 @@
     .project-hero {
         height: 400px;
         /* Placeholder background - replace with actual image */
-        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{{ url_for('static', filename='images/projects/computer-vision-bg.jpg') }}');
         background-size: cover;
         background-position: center;
         display: flex;
@@ -108,6 +107,14 @@
         margin: 30px 0;
         border: 1px solid var(--color-border);
         overflow: hidden;
+        /* Added for when image is commented out */
+        background-color: var(--color-background-alt);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 200px; /* Give some height if image is missing */
+        text-align: center;
+        color: var(--color-text-muted);
     }
 
     .project-image {
@@ -272,7 +279,7 @@
         </p>
 
         <div class="project-image-container">
-             <img src="{{ url_for('static', filename='images/placeholder_800x400.png') }}" alt="Computer Vision System Architecture" class="project-image" onerror="this.onerror=null;this.src='https://placehold.co/800x400/111111/333333?text=System+Architecture';">
+             <span>[System Architecture Placeholder Removed]</span>
         </div>
     </div>
 

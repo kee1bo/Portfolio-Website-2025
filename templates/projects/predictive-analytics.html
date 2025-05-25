@@ -5,7 +5,6 @@
     /* Styles specific to this project page */
     .project-hero {
         height: 400px;
-        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{{ url_for('static', filename='images/projects/predictive-analytics-bg.jpg') }}'); /* Placeholder image */
         background-size: cover;
         background-position: center;
         display: flex;
@@ -107,6 +106,14 @@
         margin: 30px 0;
         border: 1px solid var(--color-border); /* Use theme border */
         overflow: hidden; /* Hide overflow */
+        /* Added for when image is commented out */
+        background-color: var(--color-background-alt);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 200px; /* Give some height if image is missing */
+        text-align: center;
+        color: var(--color-text-muted);
     }
 
     .project-image {
@@ -352,7 +359,7 @@
         </p>
 
         <div class="project-image-container">
-            <img src="{{ url_for('static', filename='images/placeholder_800x400.png') }}" alt="Predictive Analytics Platform Architecture" class="project-image" onerror="this.onerror=null;this.src='https://placehold.co/800x400/111111/333333?text=Architecture+Diagram';">
+            <span>[Architecture Diagram Placeholder Removed]</span>
         </div>
     </div>
 
@@ -543,4 +550,3 @@
     // For example, initializing charts if you add a library like Chart.js
 </script>
 {% endblock %}
-
