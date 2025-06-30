@@ -1,0 +1,976 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/advanced-styles.css') }}">
+<style>
+/* Page-specific styles */
+.hero-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+}
+
+.stats-counter {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #667eea;
+    margin-bottom: 0.5rem;
+}
+
+.featured-section {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.featured-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(102,126,234,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(102,126,234,0.15)"/><circle cx="40" cy="80" r="1" fill="rgba(102,126,234,0.1)"/></svg>');
+    background-size: 100px 100px;
+    animation: movePattern 20s linear infinite;
+}
+
+@keyframes movePattern {
+    0% { transform: translateX(0) translateY(0); }
+    100% { transform: translateX(100px) translateY(100px); }
+}
+
+.section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(102,126,234,0.3), transparent);
+    margin: 4rem 0;
+}
+
+.youtube-embed {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-elevated);
+}
+
+.youtube-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.achievement-badge {
+    background: var(--gradient-accent);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-block;
+    margin: 0.25rem;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from { box-shadow: 0 0 5px rgba(79, 172, 254, 0.4); }
+    to { box-shadow: 0 0 20px rgba(79, 172, 254, 0.8); }
+}
+
+.timeline-modern {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.timeline-line-modern {
+    position: absolute;
+    left: 2rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--gradient-primary);
+}
+
+.timeline-item-modern {
+    position: relative;
+    padding-left: 6rem;
+    margin-bottom: 3rem;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    width: 2rem;
+    height: 2rem;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.video-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.video-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-elevated);
+}
+
+.video-thumbnail {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+}
+
+.video-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.video-card:hover .video-thumbnail img {
+    transform: scale(1.05);
+}
+
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.video-card:hover .play-button {
+    background: var(--gradient-primary);
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.video-info {
+    padding: 1.5rem;
+}
+
+.video-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-primary);
+}
+
+.video-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+}
+
+.cta-section {
+    background: var(--gradient-dark);
+    color: white;
+    padding: 6rem 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.03)" points="0,0 1000,300 1000,1000 0,700"/></svg>');
+    background-size: cover;
+}
+
+.cta-content {
+    position: relative;
+    z-index: 2;
+}
+
+.cta-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+}
+
+.btn-cta {
+    padding: 1.2rem 2.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-cta-primary {
+    background: var(--gradient-accent);
+    color: white;
+}
+
+.btn-cta-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    backdrop-filter: blur(10px);
+}
+
+.btn-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-elevated);
+}
+
+.floating-elements {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.floating-element {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: float-random 15s linear infinite;
+}
+
+@keyframes float-random {
+    0% {
+        transform: translateY(100vh) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) translateX(100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin: 4rem 0;
+}
+
+.stat-card {
+    text-align: center;
+    padding: 2rem;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-elevated);
+}
+
+.experience-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.experience-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--gradient-primary);
+    transition: width 0.3s ease;
+}
+
+.experience-card:hover::before {
+    width: 8px;
+}
+
+.experience-card:hover {
+    transform: translateX(10px);
+    box-shadow: var(--shadow-elevated);
+}
+
+.company-logo {
+    width: 60px;
+    height: 60px;
+    background: var(--gradient-accent);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.tech-item {
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+    padding: 0.3rem 0.8rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+</style>
+{% endblock %}
+
+{% block hero %}
+<section class="hero-advanced">
+    <div class="hero-liquid-bg"></div>
+    <div class="hero-particles">
+        <!-- Animated particles will be generated by JavaScript -->
+    </div>
+    <div class="floating-elements">
+        <div class="floating-element" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="floating-element" style="left: 20%; animation-delay: 2s;"></div>
+        <div class="floating-element" style="left: 80%; animation-delay: 4s;"></div>
+        <div class="floating-element" style="left: 90%; animation-delay: 6s;"></div>
+    </div>
+    
+    <div class="hero-content-advanced">
+        <h1 class="hero-title-advanced liquid-float">
+            <span>Neerudi</span>
+            <span class="text-gradient">Sai Vikas</span>
+        </h1>
+        <p class="hero-subtitle-advanced">
+            AI & Data Science Innovator • Building the Future with Intelligence
+        </p>
+        <p style="font-size: 1.2rem; margin-bottom: 3rem; opacity: 0.8;">
+            Transforming complex data challenges into breakthrough AI solutions that shape tomorrow's technology landscape
+        </p>
+        
+        <div class="stats-grid">
+            <div class="stat-card glass-card">
+                <div class="stats-counter" data-target="15">0</div>
+                <div>Projects Completed</div>
+            </div>
+            <div class="stat-card glass-card">
+                <div class="stats-counter" data-target="94">0</div>
+                <div>ML Model Accuracy %</div>
+            </div>
+            <div class="stat-card glass-card">
+                <div class="stats-counter" data-target="10">0</div>
+                <div>Open Source Contributions</div>
+            </div>
+            <div class="stat-card glass-card">
+                <div class="stats-counter" data-target="3">0</div>
+                <div>Research Publications</div>
+            </div>
+        </div>
+        
+        <div class="cta-buttons">
+            <a href="#featured-projects" class="btn-cta btn-cta-primary">
+                <i data-lucide="rocket"></i> Explore My Work
+            </a>
+            <a href="/contact/" class="btn-cta btn-cta-secondary">
+                <i data-lucide="message-circle"></i> Let's Collaborate
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<!-- Featured Projects Section -->
+<section id="featured-projects" class="featured-section">
+    <div class="container">
+        <h2 class="section-title text-gradient">Featured Projects</h2>
+        <p style="text-align: center; font-size: 1.2rem; margin-bottom: 4rem; color: var(--color-text-secondary);">
+            Showcasing cutting-edge AI solutions that deliver real-world impact
+        </p>
+        
+        <div class="projects-grid-advanced">
+            {% for project in featured_content.projects %}
+            <div class="project-card-advanced glass-card" onclick="window.location.href='{{ url_for('project_detail', project_id=project.id) }}'">
+                <div class="project-image-container">
+                    {% if project.thumbnail %}
+                    <img src="{{ url_for('static', filename='images/project-thumbnails/' + project.thumbnail) }}" alt="{{ project.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                    {% endif %}
+                    <div class="project-image-overlay">
+                        <i class="project-icon-advanced" data-lucide="external-link"></i>
+                    </div>
+                </div>
+                
+                <div class="project-content-advanced">
+                    <h3 class="project-title-advanced">{{ project.title }}</h3>
+                    <p class="project-description-advanced">{{ project.description }}</p>
+                    
+                    <div class="project-tags-advanced">
+                        {% for tag in project.tags[:3] %}
+                        <span class="project-tag-advanced">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                    
+                    {% if project.metrics %}
+                    <div class="project-metrics">
+                        {% if project.metrics.accuracy %}
+                        <div class="metric-item">
+                            <div class="metric-value">{{ project.metrics.accuracy }}%</div>
+                            <div class="metric-label">Accuracy</div>
+                        </div>
+                        {% endif %}
+                        {% if project.metrics.languages %}
+                        <div class="metric-item">
+                            <div class="metric-value">{{ project.metrics.languages }}</div>
+                            <div class="metric-label">Languages</div>
+                        </div>
+                        {% endif %}
+                        {% if project.metrics.fps %}
+                        <div class="metric-item">
+                            <div class="metric-value">{{ project.metrics.fps }}</div>
+                            <div class="metric-label">FPS</div>
+                        </div>
+                        {% endif %}
+                        {% if project.metrics.efficiency_gain %}
+                        <div class="metric-item">
+                            <div class="metric-value">{{ project.metrics.efficiency_gain }}</div>
+                            <div class="metric-label">Efficiency</div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    
+                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                        {% if project.github %}
+                        <a href="{{ project.github }}" class="btn" style="flex: 1; text-align: center;" target="_blank">
+                            <i data-lucide="github"></i> Code
+                        </a>
+                        {% endif %}
+                        {% if project.live_demo %}
+                        <a href="{{ project.live_demo }}" class="btn btn-primary" style="flex: 1; text-align: center;" target="_blank">
+                            <i data-lucide="external-link"></i> Demo
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="/projects/" class="btn-advanced">
+                <i data-lucide="folder"></i> View All Projects
+            </a>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- Experience Section -->
+<section id="experience" style="padding: 6rem 0;">
+    <div class="container">
+        <h2 class="section-title text-gradient">Professional Journey</h2>
+        
+        <div class="timeline-modern">
+            <div class="timeline-line-modern"></div>
+            {% for exp in experience %}
+            <div class="timeline-item-modern">
+                <div class="timeline-dot">
+                    <i data-lucide="briefcase" style="color: white; font-size: 1rem;"></i>
+                </div>
+                
+                <div class="experience-card">
+                    <div style="display: flex; align-items: flex-start; gap: 2rem;">
+                        <div class="company-logo">
+                            {{ exp.company[0] }}
+                        </div>
+                        <div style="flex: 1;">
+                            <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">{{ exp.title }}</h3>
+                            <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; color: var(--color-text-secondary);">
+                                <span><i data-lucide="building"></i> {{ exp.company }}</span>
+                                <span><i data-lucide="calendar"></i> {{ exp.period }}</span>
+                                <span><i data-lucide="map-pin"></i> {{ exp.location }}</span>
+                            </div>
+                            <p style="margin-bottom: 1.5rem; color: var(--color-text-secondary);">{{ exp.description }}</p>
+                            
+                            <div style="margin-bottom: 1.5rem;">
+                                <h4 style="font-weight: 600; margin-bottom: 1rem;">Key Achievements</h4>
+                                <ul style="list-style: none; padding: 0;">
+                                    {% for achievement in exp.achievements %}
+                                    <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                                        <i data-lucide="check-circle" style="color: #4ade80; margin-top: 0.2rem; flex-shrink: 0;"></i>
+                                        <span>{{ achievement }}</span>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            
+                            <div class="tech-stack">
+                                {% for tech in exp.technologies %}
+                                <span class="tech-item">{{ tech }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- Skills Showcase -->
+<section class="skills-container-advanced">
+    <div class="container">
+        <h2 class="section-title text-gradient">Technical Expertise</h2>
+        
+        <div class="skills-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem;">
+            {% for skill in skills %}
+            <div class="skill-card-liquid">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="background: var(--gradient-accent); padding: 1rem; border-radius: 12px; color: white;">
+                        <i data-lucide="{{ skill.icon }}" style="font-size: 1.5rem;"></i>
+                    </div>
+                    <div>
+                        <h3 style="font-weight: 700; margin-bottom: 0.5rem;">{{ skill.name }}</h3>
+                        <div style="display: flex; gap: 1rem; font-size: 0.9rem; color: var(--color-text-secondary);">
+                            <span><i data-lucide="clock"></i> {{ skill.years }} years</span>
+                            <span><i data-lucide="star"></i> {{ skill.category }}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-progress-liquid">
+                    <div class="skill-progress-fill" style="width: {{ skill.level }}%;"></div>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--color-text-secondary); margin-bottom: 1rem;">
+                    <span>Proficiency</span>
+                    <span>{{ skill.level }}%</span>
+                </div>
+                
+                <div>
+                    <h4 style="font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem;">Related Projects:</h4>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                        {% for project in skill.projects[:3] %}
+                        <span style="background: rgba(102, 126, 234, 0.1); color: #667eea; padding: 0.2rem 0.6rem; border-radius: 8px; font-size: 0.8rem;">{{ project }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div style="margin-top: 3rem;">
+            <h3 style="text-align: center; margin-bottom: 2rem; font-weight: 600;">Additional Technologies</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+                {% for skill in additional_skills %}
+                <span class="achievement-badge">{{ skill }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- Latest Blog Posts -->
+{% if featured_content.blogs %}
+<section style="padding: 6rem 0; background: var(--color-background-alt);">
+    <div class="container">
+        <h2 class="section-title text-gradient">Latest Insights</h2>
+        <p style="text-align: center; font-size: 1.2rem; margin-bottom: 4rem; color: var(--color-text-secondary);">
+            Sharing knowledge and discoveries from the world of AI and data science
+        </p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem;">
+            {% for post in featured_content.blogs %}
+            <div class="blog-card-advanced" onclick="window.location.href='/blog/{{ post.slug }}/'">
+                <div class="blog-image-container">
+                    {% if post.featured_image %}
+                    <img src="{{ post.featured_image }}" alt="{{ post.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                    {% endif %}
+                </div>
+                
+                <div class="blog-content-advanced">
+                    <div class="blog-meta">
+                        <div class="blog-date">
+                            <i data-lucide="calendar"></i>
+                            <span>{{ post.created_at[:10] }}</span>
+                        </div>
+                        <div class="blog-reading-time">
+                            <i data-lucide="clock"></i>
+                            <span>{{ post.reading_time }} min read</span>
+                        </div>
+                    </div>
+                    
+                    <h3 class="blog-title-advanced">{{ post.title }}</h3>
+                    <p class="blog-excerpt">{{ post.excerpt or post.content[:150] + '...' }}</p>
+                    
+                    <div class="blog-tags">
+                        {% for tag in post.tags[:3] %}
+                        <span class="blog-tag">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="/blog/" class="btn-advanced">
+                <i data-lucide="book-open"></i> Read More Articles
+            </a>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+{% endif %}
+
+<!-- YouTube Videos Section -->
+{% if featured_content.videos %}
+<section style="padding: 6rem 0;">
+    <div class="container">
+        <h2 class="section-title text-gradient">Video Content</h2>
+        <p style="text-align: center; font-size: 1.2rem; margin-bottom: 4rem; color: var(--color-text-secondary);">
+            Educational content and project walkthroughs on my YouTube channel
+        </p>
+        
+        <div class="video-grid">
+            {% for video in featured_content.videos %}
+            <div class="video-card" onclick="window.open('https://youtube.com/watch?v={{ video.video_id }}', '_blank')">
+                <div class="video-thumbnail">
+                    <img src="{{ video.thumbnail }}" alt="{{ video.title }}">
+                    <div class="play-button">
+                        <i data-lucide="play"></i>
+                    </div>
+                </div>
+                
+                <div class="video-info">
+                    <h3 class="video-title">{{ video.title }}</h3>
+                    <div class="video-meta">
+                        <span><i data-lucide="eye"></i> {{ "{:,}".format(video.views) }} views</span>
+                        <span><i data-lucide="clock"></i> {{ video.duration }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="https://youtube.com/@yourchannelname" class="btn-advanced" target="_blank">
+                <i data-lucide="youtube"></i> Visit My Channel
+            </a>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+{% endif %}
+
+<!-- Education Timeline -->
+<section style="padding: 6rem 0; background: var(--color-background-alt);">
+    <div class="container">
+        <h2 class="section-title text-gradient">Educational Foundation</h2>
+        
+        <div class="timeline-modern">
+            <div class="timeline-line-modern"></div>
+            {% for item in education %}
+            <div class="timeline-item-modern">
+                <div class="timeline-dot">
+                    <i data-lucide="{{ item.icon }}" style="color: white; font-size: 1rem;"></i>
+                </div>
+                
+                <div class="experience-card">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                        <div>
+                            <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem;">{{ item.degree }}</h3>
+                            <div style="color: var(--color-text-secondary); margin-bottom: 0.5rem;">
+                                <i data-lucide="graduation-cap"></i> {{ item.institution }}
+                            </div>
+                            <div style="display: flex; gap: 1rem; font-size: 0.9rem; color: var(--color-text-secondary);">
+                                <span><i data-lucide="calendar"></i> {{ item.period }}</span>
+                                {% if item.gpa %}
+                                <span><i data-lucide="award"></i> GPA: {{ item.gpa }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <span class="achievement-badge">{{ item.status }}</span>
+                    </div>
+                    
+                    <p style="margin-bottom: 1.5rem; color: var(--color-text-secondary);">{{ item.description }}</p>
+                    
+                    {% if item.achievements %}
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="font-weight: 600; margin-bottom: 1rem;">Key Achievements</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            {% for achievement in item.achievements %}
+                            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                                <i data-lucide="star" style="color: #fbbf24; margin-top: 0.2rem; flex-shrink: 0;"></i>
+                                <span>{{ achievement }}</span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    
+                    {% if item.courses %}
+                    <div>
+                        <h4 style="font-weight: 600; margin-bottom: 1rem;">Relevant Coursework</h4>
+                        <div class="tech-stack">
+                            {% for course in item.courses %}
+                            <span class="tech-item">{{ course }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta-section">
+    <div class="floating-elements">
+        <div class="floating-element" style="left: 5%; animation-delay: 0s;"></div>
+        <div class="floating-element" style="left: 15%; animation-delay: 3s;"></div>
+        <div class="floating-element" style="left: 25%; animation-delay: 6s;"></div>
+        <div class="floating-element" style="left: 75%; animation-delay: 2s;"></div>
+        <div class="floating-element" style="left: 85%; animation-delay: 5s;"></div>
+        <div class="floating-element" style="left: 95%; animation-delay: 8s;"></div>
+    </div>
+    
+    <div class="cta-content">
+        <h2 class="cta-title">Let's Build the Future Together</h2>
+        <p style="font-size: 1.3rem; margin-bottom: 2rem; opacity: 0.9; max-width: 600px; margin-left: auto; margin-right: auto;">
+            Ready to transform your ideas into intelligent solutions? I'm passionate about collaborating on projects that push the boundaries of what's possible with AI and data science.
+        </p>
+        
+        <div class="cta-buttons">
+            <a href="/contact/" class="btn-cta btn-cta-primary">
+                <i data-lucide="mail"></i> Start a Conversation
+            </a>
+            <a href="/resume/" class="btn-cta btn-cta-secondary">
+                <i data-lucide="download"></i> Download Resume
+            </a>
+            <a href="https://github.com/kee1bo" class="btn-cta btn-cta-secondary" target="_blank">
+                <i data-lucide="github"></i> View GitHub
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Counter animation for stats
+function animateCounters() {
+    const counters = document.querySelectorAll('.stats-counter');
+    
+    counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target'));
+        const duration = 2000; // 2 seconds
+        const increment = target / (duration / 16); // 60 FPS
+        let current = 0;
+        
+        const updateCounter = () => {
+            current += increment;
+            if (current >= target) {
+                counter.textContent = target;
+            } else {
+                counter.textContent = Math.floor(current);
+                requestAnimationFrame(updateCounter);
+            }
+        };
+        
+        updateCounter();
+    });
+}
+
+// Particle generation
+function createParticles() {
+    const particlesContainer = document.querySelector('.hero-particles');
+    const particleCount = 50;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.width = Math.random() * 4 + 2 + 'px';
+        particle.style.height = particle.style.width;
+        particle.style.animationDelay = Math.random() * 6 + 's';
+        particle.style.animationDuration = 6 + Math.random() * 4 + 's';
+        
+        particlesContainer.appendChild(particle);
+    }
+}
+
+// Skill progress animation
+function animateSkillBars() {
+    const skillBars = document.querySelectorAll('.skill-progress-fill');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const width = entry.target.style.width;
+                entry.target.style.width = '0%';
+                setTimeout(() => {
+                    entry.target.style.width = width;
+                }, 200);
+            }
+        });
+    });
+    
+    skillBars.forEach(bar => observer.observe(bar));
+}
+
+// Glass card hover effects
+function initializeGlassEffects() {
+    const glassCards = document.querySelectorAll('.glass-card');
+    
+    glassCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
+            
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+        });
+    });
+}
+
+// Initialize everything when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    createParticles();
+    
+    // Delay animations to create staggered effect
+    setTimeout(animateCounters, 500);
+    setTimeout(animateSkillBars, 1000);
+    setTimeout(initializeGlassEffects, 1500);
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+});
+
+// Add dynamic navbar background on scroll
+window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.glass-navbar');
+    if (navbar) {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    }
+});
+</script>
+{% endblock %}
