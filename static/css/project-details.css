@@ -1,552 +1,620 @@
-/* Project Detail Page Styles */
+/* Professional Project Detail Page Styles */
+
 .project-detail-page {
-    padding-top: 0;
+  padding-top: 0;
+}
+
+/* Project Hero Section */
+.project-hero {
+  background-color: var(--color-background-alt);
+  padding: 8rem 0 4rem;
+  margin-bottom: 5rem;
+  position: relative;
+}
+
+.project-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -50px;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(to bottom, var(--color-background-alt), transparent);
+  z-index: -1;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 3rem;
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+  transition: color var(--transition-base);
+  text-decoration: none;
+}
+
+.back-button:hover {
+  color: var(--color-text-primary);
+}
+
+.back-button i {
+  margin-right: 1rem;
+}
+
+.project-title {
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-extrabold);
+  margin-bottom: 1.5rem;
+  color: var(--color-text-primary);
+}
+
+.project-subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  margin-bottom: 2.5rem;
+  max-width: 800px;
+  line-height: var(--line-height-relaxed);
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.project-tag {
+  display: inline-block;
+  padding: 0.6rem 1.5rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  transition: all var(--transition-base);
+}
+
+.project-tag:hover {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  border-color: var(--color-black);
+  transform: translateY(-2px);
+}
+
+/* Project Content Layout */
+.project-detail-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 4rem;
+  margin-bottom: 6rem;
+}
+
+.project-description h2 {
+  font-size: var(--font-size-3xl);
+  margin-bottom: 2rem;
+  margin-top: 4rem;
+  position: relative;
+  padding-bottom: 1rem;
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.project-description h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: var(--color-black);
+  border-radius: 2px;
+}
+
+.project-description p {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+/* Algorithm Section */
+.algorithm-grid, 
+.applications-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2.5rem;
+  margin: 3rem 0 4rem;
+}
+
+.algorithm-card, 
+.application-card {
+  position: relative;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  padding: 2.5rem;
+  transition: all var(--transition-base);
+  overflow: hidden;
+}
+
+.algorithm-card::before, 
+.application-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: var(--color-black);
+  transform: scaleX(0);
+  transition: transform var(--transition-base);
+}
+
+.algorithm-card:hover, 
+.application-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-xl);
+}
+
+.algorithm-card:hover::before, 
+.application-card:hover::before {
+  transform: scaleX(1);
+}
+
+.algorithm-icon, 
+.application-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 2rem;
+  border: 2px solid var(--color-black);
+  border-radius: 50%;
+  color: var(--color-black);
+  font-size: 2.4rem;
+  transition: all var(--transition-base);
+  position: relative;
+}
+
+.algorithm-card:hover .algorithm-icon, 
+.application-card:hover .application-icon {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  transform: scale(1.1);
+  box-shadow: var(--shadow-lg);
+}
+
+.algorithm-card h3, 
+.application-card h3 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: var(--color-text-primary);
+}
+
+.algorithm-card p, 
+.application-card p {
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Theorems Section */
+.theorem-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2.5rem;
+  margin: 3rem 0;
+}
+
+.theorem-card {
+  background-color: var(--color-surface);
+  border-left: 4px solid var(--color-black);
+  border-radius: var(--border-radius);
+  padding: 2.5rem;
+  transition: all var(--transition-base);
+  border: 1px solid var(--color-border);
+}
+
+.theorem-card:hover {
+  transform: translateX(5px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-border-strong);
+}
+
+.theorem-card h3 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: 1.5rem;
+  color: var(--color-text-primary);
+}
+
+.theorem-card p {
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  font-size: var(--font-size-base);
+}
+
+/* Visualizations */
+.visualization-container {
+  margin: 4rem 0;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-base);
+}
+
+.visualization-container:hover {
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-border-strong);
+}
+
+.visualization {
+  padding: 2rem;
+}
+
+.visualization svg {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  overflow: visible;
+}
+
+.visualization-caption {
+  text-align: center;
+  padding: 1.5rem;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-style: italic;
+}
+
+/* Graph Visualization Animations */
+.graph-node {
+  transition: transform 0.3s ease, fill 0.3s ease;
+}
+
+.graph-node:hover {
+  transform: scale(1.2);
+  fill: var(--color-black);
+}
+
+.graph-edge {
+  transition: stroke 0.3s ease, stroke-width 0.3s ease;
+}
+
+.matching-edge {
+  stroke-dasharray: 0;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1s ease-in-out;
+}
+
+/* Mathematical Content */
+.math-content {
+  background-color: var(--color-surface);
+  padding: 3rem;
+  border-radius: var(--border-radius-lg);
+  margin: 3rem 0;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.math-formula {
+  margin: 2.5rem 0;
+  text-align: center;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+  overflow-x: auto;
+  padding: 1rem 0;
+}
+
+/* Sidebar Components */
+.project-sidebar {
+  position: sticky;
+  top: 100px;
+  align-self: start;
+}
+
+.sidebar-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  padding: 2.5rem;
+  margin-bottom: 3rem;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.sidebar-card:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-md);
+}
+
+.sidebar-card h3 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+}
+
+/* Tech Stack */
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.tech-tag {
+  padding: 0.8rem 1.5rem;
+  background-color: var(--color-gray-100);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  transition: all var(--transition-base);
+}
+
+.tech-tag:hover {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  transform: translateY(-3px);
+  border-color: var(--color-black);
+}
+
+/* Sidebar Links */
+.sidebar-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  transition: all var(--transition-base);
+  background-color: var(--color-surface);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.sidebar-link:hover {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  border-color: var(--color-black);
+  transform: translateX(5px);
+}
+
+.sidebar-link i {
+  margin-right: 1.5rem;
+}
+
+/* Related Projects */
+.related-projects {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.related-project {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  transition: all var(--transition-base);
+  background-color: var(--color-surface);
+  text-decoration: none;
+  color: inherit;
+}
+
+.related-project:hover {
+  background-color: var(--color-gray-100);
+  border-color: var(--color-border-strong);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-sm);
+}
+
+.related-project-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-right: 1.5rem;
+  border-radius: 50%;
+  background-color: var(--color-gray-100);
+  color: var(--color-text-secondary);
+  transition: all var(--transition-base);
+}
+
+.related-project:hover .related-project-icon {
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+.related-project-info h4 {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+}
+
+.related-project-info p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Animation Effects */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+/* SVG Styling */
+.complexity-visualization text,
+.bipartite-graph text,
+.rna-pairing-svg .base,
+.architecture-svg text,
+.perf-chart-svg text {
+  fill: var(--color-text-secondary);
+}
+
+.complexity-visualization .axis-line,
+.perf-chart-svg .axis {
+  stroke: var(--color-text-secondary);
+}
+
+.complexity-visualization .grid-line,
+.bipartite-graph .graph-edge,
+.architecture-svg .arrow,
+.perf-chart-svg .grid-line {
+  stroke: var(--color-border);
+}
+
+.complexity-visualization .perm-line,
+.bipartite-graph .graph-node-right,
+.rna-pairing-svg .pair-GC {
+  stroke: var(--color-black);
+}
+
+.complexity-visualization .det-line,
+.bipartite-graph .graph-node-left {
+  stroke: var(--color-text-secondary);
+}
+
+.bipartite-graph .matching-edge {
+  stroke: var(--color-black);
+}
+
+.architecture-svg .block {
+  fill: var(--color-surface);
+  stroke: var(--color-border);
+}
+
+.architecture-svg .block.ensemble {
+  stroke: var(--color-black);
+  fill: var(--color-surface);
+}
+
+.architecture-svg .block-title {
+  fill: var(--color-text-primary);
+}
+
+.perf-chart-svg .bar {
+  fill: var(--color-black);
+}
+
+.perf-chart-svg .bar:hover {
+  opacity: 0.8;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .project-detail-content {
+    grid-template-columns: 1fr;
   }
   
-  /* Project Hero Section */
+  .project-sidebar {
+    position: static;
+    margin-top: 4rem;
+  }
+  
+  .theorem-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .algorithm-grid, 
+  .applications-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
   .project-hero {
-    background-color: var(--color-background-alt);
-    padding: 8rem 0 4rem;
-    margin-bottom: 5rem;
-    position: relative;
-  }
-  
-  .project-hero::after {
-    content: '';
-    position: absolute;
-    bottom: -50px;
-    left: 0;
-    right: 0;
-    height: 100px;
-    background: linear-gradient(to bottom, var(--color-background-alt), transparent);
-    z-index: -1;
-  }
-  
-  .back-button {
-    display: inline-flex;
-    align-items: center;
-    margin-bottom: 3rem;
-    color: var(--color-text-secondary);
-    font-weight: 500;
-    transition: color var(--transition-speed) ease;
-  }
-  
-  .back-button:hover {
-    color: var(--color-accent);
-  }
-  
-  .back-button i {
-    margin-right: 1rem;
+    padding: 6rem 0 3rem;
   }
   
   .project-title {
-    font-size: 4rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    color: var(--color-text);
+    font-size: var(--font-size-4xl);
   }
   
   .project-subtitle {
-    font-size: 1.8rem;
-    color: var(--color-text-secondary);
-    margin-bottom: 2.5rem;
-    max-width: 800px;
+    font-size: var(--font-size-base);
   }
   
-  .project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  .project-tag {
-    display: inline-block;
-    padding: 0.6rem 1.5rem;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 3px;
-    font-size: 1.4rem;
-    font-weight: 500;
-    color: var(--color-text);
-    transition: all var(--transition-speed) ease;
-  }
-  
-  .project-tag:hover {
-    background-color: var(--color-accent);
-    color: var(--color-background);
-    transform: translateY(-2px);
-  }
-  
-  /* Project Content Layout */
-  .project-detail-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 4rem;
-    margin-bottom: 6rem;
-  }
-  
-  .project-description h2 {
-    font-size: 2.8rem;
-    margin-bottom: 2rem;
-    margin-top: 4rem;
-    position: relative;
-    padding-bottom: 1rem;
-  }
-  
-  .project-description h2::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 60px;
-    height: 3px;
-    background-color: var(--color-accent);
-  }
-  
-  .project-description p {
-    font-size: 1.6rem;
-    line-height: 1.7;
-    color: var(--color-text-secondary);
-    margin-bottom: 1.5rem;
-  }
-  
-  /* Algorithm Section */
-  .algorithm-grid, .applications-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2.5rem;
-    margin: 3rem 0 4rem;
-  }
-  
-  .algorithm-card, .application-card {
-    position: relative;
-    background-color: var(--color-card);
-    border: 1px solid var(--color-border);
-    padding: 2.5rem;
-    transition: all var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
-    overflow: hidden;
-    z-index: 1;
-  }
-  
-  .algorithm-card::before, .application-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 50% 30%, var(--skill-glow), transparent 70%);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity var(--transition-speed) ease;
-    z-index: 0;
-  }
-  
-  .algorithm-card:hover, .application-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--color-accent);
-    box-shadow: var(--box-shadow-hover);
-  }
-  
-  .algorithm-card:hover::before, .application-card:hover::before {
-    opacity: 1;
-  }
-  
-  .algorithm-icon, .application-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    margin: 0 auto 2rem;
-    border: 2px solid var(--color-accent);
-    border-radius: 50%;
-    color: var(--color-accent);
-    font-size: 2.4rem;
-    transition: all var(--transition-speed) ease;
-    position: relative;
-    z-index: 1;
-  }
-  
-  .algorithm-card:hover .algorithm-icon, .application-card:hover .application-icon {
-    background-color: var(--color-accent);
-    color: var(--color-background);
-    transform: scale(1.1);
-    box-shadow: 0 0 20px var(--color-accent);
-  }
-  
-  .algorithm-card h3, .application-card h3 {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-  }
-  
-  .algorithm-card p, .application-card p {
-    text-align: center;
-    color: var(--color-text-secondary);
-    font-size: 1.5rem;
-    line-height: 1.5;
-    position: relative;
-    z-index: 1;
-  }
-  
-  /* Theorems Section */
-  .theorem-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2.5rem;
-    margin: 3rem 0;
-  }
-  
-  .theorem-card {
-    background-color: var(--color-card);
-    border-left: 4px solid var(--color-accent);
-    padding: 2.5rem;
-    transition: all var(--transition-speed) ease;
-  }
-  
-  .theorem-card:hover {
-    transform: translateX(5px);
-    box-shadow: var(--box-shadow-hover);
-  }
-  
-  .theorem-card h3 {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-    color: var(--color-text);
-  }
-  
-  .theorem-card p {
-    color: var(--color-text-secondary);
-    line-height: 1.6;
-  }
-  
-  /* Visualizations */
-  .visualization-container {
-    margin: 4rem 0;
-    background-color: var(--color-card);
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
-    overflow: hidden;
-    transition: all var(--transition-speed) ease;
-  }
-  
-  .visualization-container:hover {
-    box-shadow: var(--box-shadow-hover);
-    border-color: var(--color-accent);
-  }
-  
-  .visualization {
-    padding: 2rem;
-  }
-  
-  .visualization svg {
-    width: 100%;
-    height: auto;
-    max-height: 400px;
-    overflow: visible;
-  }
-  
-  .visualization-caption {
-    text-align: center;
-    padding: 1.5rem;
-    border-top: 1px solid var(--color-border);
-    color: var(--color-text-secondary);
-    font-size: 1.4rem;
-    font-style: italic;
-  }
-  
-  /* Graph Visualization Animations */
-  .graph-node {
-    transition: transform 0.3s ease, fill 0.3s ease;
-  }
-  
-  .graph-node:hover {
-    transform: scale(1.2);
-    fill: var(--color-accent);
-  }
-  
-  .graph-edge {
-    transition: stroke 0.3s ease, stroke-width 0.3s ease;
-  }
-  
-  .matching-edge {
-    stroke-dasharray: 0;
-    stroke-dashoffset: 0;
-    transition: stroke-dashoffset 1s ease-in-out;
-  }
-  
-  /* Mathematical Content */
-  .math-content {
-    background-color: var(--color-card);
-    padding: 3rem;
-    border-radius: 4px;
-    margin: 3rem 0;
-    border: 1px solid var(--color-border);
+  .algorithm-grid, 
+  .applications-grid {
+    grid-template-columns: 1fr;
   }
   
   .math-formula {
-    margin: 2.5rem 0;
-    text-align: center;
-    font-size: 1.8rem;
-    color: var(--color-text);
+    font-size: var(--font-size-base);
+    padding: 2rem 0;
     overflow-x: auto;
-    padding: 1rem 0;
-  }
-  
-  /* Sidebar Components */
-  .project-sidebar {
-    position: sticky;
-    top: 100px;
-    align-self: start;
   }
   
   .sidebar-card {
-    background-color: var(--color-card);
-    border: 1px solid var(--color-border);
-    padding: 2.5rem;
-    margin-bottom: 3rem;
-    transition: all var(--transition-speed) ease;
+    padding: 2rem;
   }
   
-  .sidebar-card:hover {
-    border-color: var(--color-accent);
-    box-shadow: var(--box-shadow-hover);
+  .algorithm-card,
+  .application-card,
+  .theorem-card {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .project-title {
+    font-size: var(--font-size-3xl);
   }
   
-  .sidebar-card h3 {
-    font-size: 1.8rem;
+  .back-button {
     margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--color-border);
   }
   
-  /* Tech Stack */
-  .tech-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+  .project-detail-content {
+    gap: 2rem;
   }
   
-  .tech-tag {
-    padding: 0.8rem 1.5rem;
-    background-color: var(--color-background);
-    border: 1px solid var(--color-border);
-    font-size: 1.4rem;
-    transition: all var(--transition-speed) ease;
-  }
-  
-  .tech-tag:hover {
-    background-color: var(--color-accent);
-    color: var(--color-background);
-    transform: translateY(-3px);
-    border-color: var(--color-accent);
-  }
-  
-  /* Sidebar Links */
-  .sidebar-links {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  
-  .sidebar-link {
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    border: 1px solid var(--color-border);
-    transition: all var(--transition-speed) ease;
-  }
-  
-  .sidebar-link:hover {
-    background-color: var(--color-accent);
-    color: var(--color-background);
-    border-color: var(--color-accent);
-    transform: translateX(5px);
-  }
-  
-  .sidebar-link i {
-    margin-right: 1.5rem;
-  }
-  
-  /* Related Projects */
-  .related-projects {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  
-  .related-project {
-    display: flex;
-    align-items: center;
+  .sidebar-card {
     padding: 1.5rem;
-    border: 1px solid var(--color-border);
-    transition: all var(--transition-speed) ease;
+    margin-bottom: 2rem;
   }
   
-  .related-project:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-color: var(--color-accent);
-    transform: translateY(-3px);
-  }
-  
-  .related-project-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    margin-right: 1.5rem;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: var(--color-accent);
-    transition: all var(--transition-speed) ease;
-  }
-  
-  .related-project:hover .related-project-icon {
-    background-color: var(--color-accent);
-    color: var(--color-background);
-  }
-  
-  .related-project-info h4 {
-    font-size: 1.6rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .related-project-info p {
-    font-size: 1.3rem;
-    color: var(--color-text-secondary);
-  }
-  
-  /* Animation Effects */
-  @keyframes pulse {
-    0% {
-      box-shadow: 0 0 0 0 rgba(var(--color-accent-rgb), 0.4);
-    }
-    70% {
-      box-shadow: 0 0 0 10px rgba(var(--color-accent-rgb), 0);
-    }
-    100% {
-      box-shadow: 0 0 0 0 rgba(var(--color-accent-rgb), 0);
-    }
-  }
-  
-  .pulse {
-    animation: pulse 2s infinite;
-  }
-  
-  /* Dark Mode Specifics */
-  .theme-dark .project-hero {
-    background-color: var(--color-background-alt);
-  }
-  
-  .theme-dark .project-tag {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.1);
-  }
-  
-  .theme-dark .theorem-card {
-    border-left-color: var(--color-accent);
-  }
-  
-  .theme-dark .visualization-container {
-    background-color: var(--color-card);
-    border-color: var(--color-border);
-  }
-  
-  .theme-dark .tech-tag {
-    background-color: rgba(0, 0, 0, 0.3);
-  }
-  
-  /* Responsive Styles */
-  @media (max-width: 992px) {
-    .project-detail-content {
-      grid-template-columns: 1fr;
-    }
-    
-    .project-sidebar {
-      position: static;
-      margin-top: 4rem;
-    }
-    
-    .theorem-container {
-      grid-template-columns: 1fr;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .project-title {
-      font-size: 3rem;
-    }
-    
-    .project-subtitle {
-      font-size: 1.6rem;
-    }
-    
-    .algorithm-grid, .applications-grid {
-      grid-template-columns: 1fr;
-    }
-    
-    .math-formula {
-      font-size: 1.5rem;
-      padding: 2rem 0;
-      overflow-x: auto;
-    }
-  }
-  
-  @media (max-width: 576px) {
-    .project-hero {
-      padding: 6rem 0 3rem;
-    }
-    
-    .project-title {
-      font-size: 2.4rem;
-    }
-    
-    .back-button {
-      margin-bottom: 2rem;
-    }
-  }
-  
-  /* SVG Animation Styles */
-  .complexity-visualization path {
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    animation: drawLine 2s forwards ease-in-out;
-  }
-  
-  .complexity-visualization path:nth-child(2) {
-    animation-delay: 0.5s;
-  }
-  
-  @keyframes drawLine {
-    to {
-      stroke-dashoffset: 0;
-    }
-  }
-  
-  /* Hover sparks effect for tech tags */
   .tech-tag {
-    position: relative;
-    overflow: hidden;
+    padding: 0.6rem 1rem;
+    font-size: var(--font-size-xs);
   }
   
-  .tech-tag::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), var(--color-accent) 0%, transparent 50%);
-    opacity: 0;
-    transition: opacity 0.3s;
-    z-index: -1;
+  .algorithm-icon,
+  .application-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 2rem;
   }
-  
-  .tech-tag:hover::before {
-    opacity: 0.1;
-  }
+}
