@@ -4,15 +4,38 @@
 <section id="hero" class="hero-section">
     <div class="container hero-container">
         <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-text">🚀 AI & Data Science Specialist</span>
+            </div>
             <h1 class="hero-title">
-                <span>Neerudi</span>
-                <span class="underlined">Sai Vikas</span>
+                <span class="gradient-text">Neerudi</span>
+                <span class="gradient-text">Sai Vikas</span>
             </h1>
-            <h2 class="hero-subtitle">AI & Data Science Specialist</h2>
-            <p class="hero-description">Transforming complex data challenges into innovative AI solutions</p>
+            <h2 class="hero-subtitle">Transforming Data into Intelligence</h2>
+            <p class="hero-description">Building the future of AI with cutting-edge machine learning, natural language processing, and deep learning solutions that solve real-world challenges.</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">5+</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">20+</span>
+                    <span class="stat-label">Projects Completed</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">94%</span>
+                    <span class="stat-label">Model Accuracy</span>
+                </div>
+            </div>
             <div class="hero-buttons">
-                <a href="/#projects" class="btn btn-primary hero-btn-projects">VIEW PROJECTS</a> {# Added specific class #}
-                <a href="/#contact" class="btn btn-outline">GET IN TOUCH</a>
+                <a href="/#projects" class="btn btn-primary hero-btn-projects">
+                    <i data-lucide="rocket"></i>
+                    <span>Explore Projects</span>
+                </a>
+                <a href="/#contact" class="btn btn-outline">
+                    <i data-lucide="message-circle"></i>
+                    <span>Let's Connect</span>
+                </a>
             </div>
         </div>
     </div>
@@ -22,18 +45,54 @@
 {% block content %}
 <section id="about" class="about-section">
     <div class="container">
-        <h2 class="section-title"><span>About Me</span></h2>
+        <h2 class="section-title">
+            <span class="gradient-text">About Me</span>
+        </h2>
         <div class="about-content">
             <div class="profile-image">
                 <div class="profile-front">
-                    <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="Profile Picture of Neerudi Sai Vikas" onerror="this.onerror=null;this.src='https://placehold.co/300x300/212529/F8F9FA?text=NSV';">
+                    <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="Profile Picture of Neerudi Sai Vikas" onerror="this.onerror=null;this.src='https://placehold.co/300x300/6366f1/ffffff?text=NSV';">
                 </div>
                 <div class="profile-back"></div>
+                <div class="profile-glow"></div>
             </div>
             <div class="about-text">
-                <p>I'm an AI and Data Science professional with expertise in Machine Learning, Natural Language Processing, and Deep Learning. My passion lies in building intelligent systems that can understand, learn, and adapt to solve complex real-world problems.</p>
-                <p>With a strong foundation in Computer Science from IIT Indore and specialized knowledge in AI from my ongoing MTech program, I combine theoretical depth with practical implementation skills to deliver impactful solutions.</p>
-                <p>I thrive in collaborative environments where I can apply my technical expertise to create innovative solutions that drive business value and technological advancement.</p>
+                <div class="about-intro">
+                    <h3>Passionate AI Engineer & Researcher</h3>
+                    <p>I'm a dedicated AI and Data Science professional with a deep passion for pushing the boundaries of what's possible with artificial intelligence. My journey spans from foundational computer science principles to cutting-edge research in machine learning and deep learning.</p>
+                </div>
+                
+                <div class="about-highlights">
+                    <div class="highlight-item">
+                        <div class="highlight-icon">
+                            <i data-lucide="brain"></i>
+                        </div>
+                        <div class="highlight-content">
+                            <h4>Expert in ML & NLP</h4>
+                            <p>Specialized in building intelligent systems that understand and process human language with 94% accuracy across multiple languages.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-item">
+                        <div class="highlight-icon">
+                            <i data-lucide="zap"></i>
+                        </div>
+                        <div class="highlight-content">
+                            <h4>Real-World Impact</h4>
+                            <p>Delivered solutions that reduced inventory errors by 35% and improved supply chain efficiency by 28% through predictive analytics.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-item">
+                        <div class="highlight-icon">
+                            <i data-lucide="trending-up"></i>
+                        </div>
+                        <div class="highlight-content">
+                            <h4>Continuous Innovation</h4>
+                            <p>Currently researching transformer architectures for multimodal learning and novel approaches to AI competitions.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -41,13 +100,20 @@
 
 <section id="education" class="education-section">
     <div class="container">
-        <h2 class="section-title"><span>Education Journey</span></h2>
+        <h2 class="section-title">
+            <span class="gradient-text">Education Journey</span>
+        </h2>
         <div class="timeline">
             <div class="timeline-line"></div>
             {% for item in education %}
             <div class="timeline-item {% if loop.index is odd %}left{% else %}right{% endif %}">
                 <div class="timeline-content">
-                    <div class="timeline-period">{{ item.period }}</div>
+                    <div class="timeline-header">
+                        <div class="timeline-period">{{ item.period }}</div>
+                        <div class="timeline-icon">
+                            <i data-lucide="{{ item.icon | default('graduation-cap') }}"></i>
+                        </div>
+                    </div>
                     <h3 class="timeline-title">{{ item.degree }}</h3>
                     <div class="timeline-institution">{{ item.institution }}</div>
                     <p class="timeline-description">{{ item.description }}</p>
@@ -72,7 +138,6 @@
                     </div>
                     {% endif %}
                 </div>
-                <div class="timeline-icon"><i data-lucide="{{ item.icon | default('graduation-cap') }}"></i></div>
             </div>
             {% endfor %}
         </div>
@@ -81,14 +146,21 @@
 
 <section id="skills" class="skills-section">
     <div class="container">
-        <h2 class="section-title"><span>Technical Expertise</span></h2>
+        <h2 class="section-title">
+            <span class="gradient-text">Technical Expertise</span>
+        </h2>
+        <div class="skills-intro">
+            <p>Mastering the tools and technologies that power the future of artificial intelligence</p>
+        </div>
         <div class="skills-grid">
             {% for skill in skills %}
             <div class="skill-card" tabindex="0">
-                 <div class="skill-card-inner">
+                <div class="skill-card-inner">
                     <div class="skill-card-front">
                         <div class="skill-header">
-                            <div class="skill-icon"><i data-lucide="{{ skill.icon | default('cpu') }}"></i></div>
+                            <div class="skill-icon">
+                                <i data-lucide="{{ skill.icon | default('cpu') }}"></i>
+                            </div>
                             <h3 class="skill-name">{{ skill.name }}</h3>
                         </div>
                         <div class="skill-progress">
@@ -99,26 +171,30 @@
                                 <span>Beginner</span><span>Advanced</span><span>Expert</span>
                             </div>
                         </div>
-                        <p class="skill-hover-hint">View related projects & details</p>
+                        <div class="skill-category">{{ skill.category }}</div>
+                        <p class="skill-hover-hint">Click to explore related projects</p>
                     </div>
                     <div class="skill-card-back">
-                        <h4 class="skill-back-title">Related Projects / Areas</h4>
+                        <h4 class="skill-back-title">Related Projects & Expertise</h4>
                         <ul class="skill-back-projects">
                             {% if skill.name == 'Machine Learning' %}
-                                <li>Sentiment Analysis Engine</li><li>Predictive Analytics</li><li>Computer Vision System</li>
+                                <li>Sentiment Analysis Engine</li><li>Predictive Analytics Platform</li><li>Computer Vision System</li>
                             {% elif skill.name == 'Natural Language Processing' %}
-                                <li>Sentiment Analysis Engine</li><li>Advanced Text Summarization</li>
+                                <li>Multi-lingual Sentiment Analysis</li><li>Advanced Text Summarization</li><li>BERT-based Models</li>
                             {% elif skill.name == 'Deep Learning' %}
-                                <li>Sentiment Analysis Engine</li><li>Computer Vision System</li><li>Generative Models</li>
+                                <li>Transformer Architectures</li><li>Computer Vision with CNNs</li><li>Generative AI Models</li>
                             {% elif skill.name == 'Python' %}
-                                <li>Utilized in all core projects</li><li>Scripting & Automation</li>
+                                <li>Core language for all AI projects</li><li>Scripting & Automation</li><li>Data Pipeline Development</li>
                             {% elif skill.name == 'TensorFlow/PyTorch' %}
-                                <li>Sentiment Analysis Engine</li><li>Computer Vision System</li><li>Custom Model Development</li>
+                                <li>Custom Model Development</li><li>Production Model Deployment</li><li>Research Implementation</li>
                             {% else %}
-                                <li>Core to various analytical tasks</li><li>Data pipeline development</li>
+                                <li>Advanced analytical techniques</li><li>Data pipeline optimization</li><li>Performance tuning</li>
                             {% endif %}
                         </ul>
-                        <button class="skill-card-flip-btn" aria-label="Show skill details">More Info</button>
+                        <button class="skill-card-flip-btn" aria-label="Show skill details">
+                            <i data-lucide="arrow-right"></i>
+                            <span>Explore More</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -126,7 +202,7 @@
         </div>
 
         <div class="additional-skills">
-            <h3>Additional Expertise</h3>
+            <h3>Additional Technologies & Tools</h3>
             <div class="skill-tags">
                 {% for skill_tag in additional_skills %}
                 <span class="skill-tag">{{ skill_tag }}</span>
@@ -138,59 +214,111 @@
 
 <section id="projects" class="projects-section">
     <div class="container">
-        <h2 class="section-title"><span>Featured Projects</span></h2>
+        <h2 class="section-title">
+            <span class="gradient-text">Featured Projects</span>
+        </h2>
+        <div class="projects-intro">
+            <p>Showcasing innovative AI solutions that solve real-world problems</p>
+        </div>
         <div class="projects-grid">
             {% for project in projects %}
-            <div class="project-card project-card-square">
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="{{ url_for('static', filename='images/projects/' + project.thumbnail) }}" alt="{{ project.title }}" onerror="this.onerror=null;this.src='https://placehold.co/400x300/6366f1/ffffff?text={{ project.title | replace(' ', '+') }}';">
+                    <div class="project-overlay">
+                        <div class="project-links">
+                            {% if project.github %}<a href="{{ project.github }}" class="project-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository"><i data-lucide="github"></i></a>{% endif %}
+                            {% if project.medium %}<a href="{{ project.medium }}" class="project-link" target="_blank" rel="noopener noreferrer" aria-label="Medium Article"><i data-lucide="book-open"></i></a>{% endif %}
+                            {% if project.youtube %}<a href="{{ project.youtube }}" class="project-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube Video"><i data-lucide="youtube"></i></a>{% endif %}
+                            {% if project.demo %}<a href="{{ project.demo }}" class="project-link" target="_blank" rel="noopener noreferrer" aria-label="Live Demo"><i data-lucide="external-link"></i></a>{% endif %}
+                        </div>
+                    </div>
+                </div>
                 <div class="project-content">
                     <div class="project-header">
                         <h3 class="project-title">{{ project.title }}</h3>
-                        {% if project.id %}
-                            <div class="project-card-icon"><i data-lucide="{{ project.icon | default('folder-kanban') }}"></i></div>
-                        {% endif %}
+                        <div class="project-card-icon">
+                            <i data-lucide="{{ project.icon | default('folder-kanban') }}"></i>
+                        </div>
                     </div>
                     <p class="project-description">{{ project.description }}</p>
                     <div class="project-tags">
                         {% for tag in project.tags %}<span class="project-tag">{{ tag }}</span>{% endfor %}
                     </div>
                     <div class="project-footer">
-                        <div class="project-links">
-                            {% if project.github %}<a href="{{ project.github }}" class="project-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository"><i data-lucide="github"></i></a>{% endif %}
-                            {% if project.medium %}<a href="{{ project.medium }}" class="project-link" target="_blank" rel="noopener noreferrer" aria-label="Medium Article"><i data-lucide="book-open"></i></a>{% endif %}
-                            {% if project.youtube %}<a href="{{ project.youtube }}" class="project-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube Video"><i data-lucide="youtube"></i></a>{% endif %}
-                            {% if project.demo %}<a href="{{ project.demo }}" class="project-link" target="_blank" rel="noopener noreferrer" aria-label="Live Demo/Link"><i data-lucide="external-link"></i></a>{% endif %}
-                        </div>
                         <a href="{{ url_for('project_detail', project_id=project.id) }}" class="project-view-btn">
                             <span>View Details</span>
+                            <i data-lucide="arrow-right"></i>
                         </a>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
-        {# "View All Projects" button and modal REMOVED #}
     </div>
 </section>
 
 <section id="contact" class="contact-section">
     <div class="container">
-        <h2 class="section-title"><span>Get In Touch</span></h2>
+        <h2 class="section-title">
+            <span class="gradient-text">Let's Build Something Amazing</span>
+        </h2>
+        <div class="contact-intro">
+            <p>Ready to collaborate on the next breakthrough AI project? Let's connect and explore possibilities together.</p>
+        </div>
         <div class="contact-content">
             <div class="contact-form">
+                <h3>Send a Message</h3>
                 <form id="contactForm" action="#" method="POST">
-                    <div class="form-group"><label for="name">Name</label><input type="text" id="name" name="name" placeholder="Your Name" required></div>
-                    <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" placeholder="your.email@example.com" required></div>
-                    <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" rows="5" placeholder="Your message here..." required></textarea></div>
-                    <button type="submit" class="btn btn-primary contact-submit-btn">SEND MESSAGE</button> {# Added specific class #}
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Tell me about your project or collaboration idea..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary contact-submit-btn">
+                        <i data-lucide="send"></i>
+                        <span>Send Message</span>
+                    </button>
                 </form>
             </div>
             <div class="contact-info">
                 <div class="contact-card">
                     <h3>Connect With Me</h3>
                     <div class="contact-methods">
-                        <a href="mailto:neerudisaivikas@gmail.com" class="contact-method"><div class="contact-icon"><i data-lucide="mail"></i></div><div class="contact-detail"><span class="contact-label">Email</span><span class="contact-value">neerudisaivikas@gmail.com</span></div></a>
-                        <a href="https://www.linkedin.com/in/neerudi-sai-vikas-721349226/" class="contact-method" target="_blank" rel="noopener noreferrer"><div class="contact-icon"><i data-lucide="linkedin"></i></div><div class="contact-detail"><span class="contact-label">LinkedIn</span><span class="contact-value">/in/neerudi-sai-vikas</span></div></a>
-                        <a href="https://github.com/kee1bo" class="contact-method" target="_blank" rel="noopener noreferrer"><div class="contact-icon"><i data-lucide="github"></i></div><div class="contact-detail"><span class="contact-label">GitHub</span><span class="contact-value">/kee1bo</span></div></a>
+                        <a href="mailto:neerudisaivikas@gmail.com" class="contact-method">
+                            <div class="contact-icon">
+                                <i data-lucide="mail"></i>
+                            </div>
+                            <div class="contact-detail">
+                                <span class="contact-label">Email</span>
+                                <span class="contact-value">neerudisaivikas@gmail.com</span>
+                            </div>
+                        </a>
+                        <a href="https://www.linkedin.com/in/neerudi-sai-vikas-721349226/" class="contact-method" target="_blank" rel="noopener noreferrer">
+                            <div class="contact-icon">
+                                <i data-lucide="linkedin"></i>
+                            </div>
+                            <div class="contact-detail">
+                                <span class="contact-label">LinkedIn</span>
+                                <span class="contact-value">/in/neerudi-sai-vikas</span>
+                            </div>
+                        </a>
+                        <a href="https://github.com/kee1bo" class="contact-method" target="_blank" rel="noopener noreferrer">
+                            <div class="contact-icon">
+                                <i data-lucide="github"></i>
+                            </div>
+                            <div class="contact-detail">
+                                <span class="contact-label">GitHub</span>
+                                <span class="contact-value">/kee1bo</span>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
