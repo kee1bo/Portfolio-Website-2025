@@ -1,6 +1,12 @@
 [build]
-  command = "python build.py"
-  publish = "build" # Or your Frozen-Flask output directory
+  command = "./deploy.sh"
+  publish = "build"
 
 [build.environment]
-  PYTHON_VERSION = "3.9" # Specify your Python version
+  PYTHON_VERSION = "3.9"
+  PIP_USE_PEP517 = "false"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
