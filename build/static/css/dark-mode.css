@@ -1,0 +1,81 @@
+/* Professional Black & White Dark Mode */
+
+[data-theme="dark"] {
+    /* Semantic Colors (Dark Mode) */
+    --color-background: var(--color-black);
+    --color-surface: var(--color-gray-900);
+    --color-text-primary: var(--color-white);
+    --color-text-secondary: var(--color-gray-400);
+    --color-text-muted: var(--color-gray-600);
+    --color-border: var(--color-gray-800);
+    --color-accent: var(--color-white);
+}
+
+/* Dark Mode Specific Component Styles */
+[data-theme="dark"] .header {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-bottom-color: var(--color-border);
+}
+
+[data-theme="dark"] a:hover {
+    color: var(--color-gray-300);
+}
+
+/* Invert colors for primary buttons */
+[data-theme="dark"] .btn-primary {
+    background-color: var(--color-accent);
+    color: var(--color-background);
+    border-color: var(--color-accent);
+}
+
+[data-theme="dark"] .btn-primary:hover {
+    background-color: var(--color-gray-200);
+    border-color: var(--color-gray-200);
+    color: var(--color-black);
+}
+
+/* Invert colors for outline buttons */
+[data-theme="dark"] .btn-outline {
+    color: var(--color-accent);
+    border-color: var(--color-gray-700);
+}
+
+[data-theme="dark"] .btn-outline:hover {
+    background-color: var(--color-accent);
+    color: var(--color-background);
+    border-color: var(--color-accent);
+}
+
+/* Adjust card and surface colors */
+[data-theme="dark"] .timeline-content,
+[data-theme="dark"] .skill-card,
+[data-theme="dark"] .skill-tag,
+[data-theme="dark"] .project-card,
+[data-theme="dark"] .project-tag,
+[data-theme="dark"] .footer {
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+}
+
+[data-theme="dark"] .skill-card:hover {
+    border-color: var(--color-gray-700);
+}
+
+/* Form elements */
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group textarea {
+    background-color: var(--color-gray-900);
+    border-color: var(--color-border);
+    color: var(--color-text-primary);
+}
+
+[data-theme="dark"] .form-group input:focus,
+[data-theme="dark"] .form-group textarea:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .theme-toggle {
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+}

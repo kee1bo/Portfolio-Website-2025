@@ -1,0 +1,620 @@
+/* Professional Project Detail Page Styles */
+
+.project-detail-page {
+  padding-top: 0;
+}
+
+/* Project Hero Section */
+.project-hero {
+  background-color: var(--color-background-alt);
+  padding: 8rem 0 4rem;
+  margin-bottom: 5rem;
+  position: relative;
+}
+
+.project-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -50px;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(to bottom, var(--color-background-alt), transparent);
+  z-index: -1;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 3rem;
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+  transition: color var(--transition-base);
+  text-decoration: none;
+}
+
+.back-button:hover {
+  color: var(--color-text-primary);
+}
+
+.back-button i {
+  margin-right: 1rem;
+}
+
+.project-title {
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-extrabold);
+  margin-bottom: 1.5rem;
+  color: var(--color-text-primary);
+}
+
+.project-subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  margin-bottom: 2.5rem;
+  max-width: 800px;
+  line-height: var(--line-height-relaxed);
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.project-tag {
+  display: inline-block;
+  padding: 0.6rem 1.5rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  transition: all var(--transition-base);
+}
+
+.project-tag:hover {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  border-color: var(--color-black);
+  transform: translateY(-2px);
+}
+
+/* Project Content Layout */
+.project-detail-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 4rem;
+  margin-bottom: 6rem;
+}
+
+.project-description h2 {
+  font-size: var(--font-size-3xl);
+  margin-bottom: 2rem;
+  margin-top: 4rem;
+  position: relative;
+  padding-bottom: 1rem;
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.project-description h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: var(--color-black);
+  border-radius: 2px;
+}
+
+.project-description p {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+/* Algorithm Section */
+.algorithm-grid,
+.applications-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2.5rem;
+  margin: 3rem 0 4rem;
+}
+
+.algorithm-card,
+.application-card {
+  position: relative;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  padding: 2.5rem;
+  transition: all var(--transition-base);
+  overflow: hidden;
+}
+
+.algorithm-card::before,
+.application-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: var(--color-black);
+  transform: scaleX(0);
+  transition: transform var(--transition-base);
+}
+
+.algorithm-card:hover,
+.application-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-xl);
+}
+
+.algorithm-card:hover::before,
+.application-card:hover::before {
+  transform: scaleX(1);
+}
+
+.algorithm-icon,
+.application-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 2rem;
+  border: 2px solid var(--color-black);
+  border-radius: 50%;
+  color: var(--color-black);
+  font-size: 2.4rem;
+  transition: all var(--transition-base);
+  position: relative;
+}
+
+.algorithm-card:hover .algorithm-icon,
+.application-card:hover .application-icon {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  transform: scale(1.1);
+  box-shadow: var(--shadow-lg);
+}
+
+.algorithm-card h3,
+.application-card h3 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: var(--color-text-primary);
+}
+
+.algorithm-card p,
+.application-card p {
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Theorems Section */
+.theorem-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2.5rem;
+  margin: 3rem 0;
+}
+
+.theorem-card {
+  background-color: var(--color-surface);
+  border-left: 4px solid var(--color-black);
+  border-radius: var(--border-radius);
+  padding: 2.5rem;
+  transition: all var(--transition-base);
+  border: 1px solid var(--color-border);
+}
+
+.theorem-card:hover {
+  transform: translateX(5px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-border-strong);
+}
+
+.theorem-card h3 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: 1.5rem;
+  color: var(--color-text-primary);
+}
+
+.theorem-card p {
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  font-size: var(--font-size-base);
+}
+
+/* Visualizations */
+.visualization-container {
+  margin: 4rem 0;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-base);
+}
+
+.visualization-container:hover {
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-border-strong);
+}
+
+.visualization {
+  padding: 2rem;
+}
+
+.visualization svg {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  overflow: visible;
+}
+
+.visualization-caption {
+  text-align: center;
+  padding: 1.5rem;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-style: italic;
+}
+
+/* Graph Visualization Animations */
+.graph-node {
+  transition: transform 0.3s ease, fill 0.3s ease;
+}
+
+.graph-node:hover {
+  transform: scale(1.2);
+  fill: var(--color-black);
+}
+
+.graph-edge {
+  transition: stroke 0.3s ease, stroke-width 0.3s ease;
+}
+
+.matching-edge {
+  stroke-dasharray: 0;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1s ease-in-out;
+}
+
+/* Mathematical Content */
+.math-content {
+  background-color: var(--color-surface);
+  padding: 3rem;
+  border-radius: var(--border-radius-lg);
+  margin: 3rem 0;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.math-formula {
+  margin: 2.5rem 0;
+  text-align: center;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+  overflow-x: auto;
+  padding: 1rem 0;
+}
+
+/* Sidebar Components */
+.project-sidebar {
+  position: sticky;
+  top: 100px;
+  align-self: start;
+}
+
+.sidebar-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  padding: 2.5rem;
+  margin-bottom: 3rem;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.sidebar-card:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-md);
+}
+
+.sidebar-card h3 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+}
+
+/* Tech Stack */
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.tech-tag {
+  padding: 0.8rem 1.5rem;
+  background-color: var(--color-gray-100);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  transition: all var(--transition-base);
+}
+
+.tech-tag:hover {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  transform: translateY(-3px);
+  border-color: var(--color-black);
+}
+
+/* Sidebar Links */
+.sidebar-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  transition: all var(--transition-base);
+  background-color: var(--color-surface);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.sidebar-link:hover {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  border-color: var(--color-black);
+  transform: translateX(5px);
+}
+
+.sidebar-link i {
+  margin-right: 1.5rem;
+}
+
+/* Related Projects */
+.related-projects {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.related-project {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  transition: all var(--transition-base);
+  background-color: var(--color-surface);
+  text-decoration: none;
+  color: inherit;
+}
+
+.related-project:hover {
+  background-color: var(--color-gray-100);
+  border-color: var(--color-border-strong);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-sm);
+}
+
+.related-project-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-right: 1.5rem;
+  border-radius: 50%;
+  background-color: var(--color-gray-100);
+  color: var(--color-text-secondary);
+  transition: all var(--transition-base);
+}
+
+.related-project:hover .related-project-icon {
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+.related-project-info h4 {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+}
+
+.related-project-info p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Animation Effects */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+/* SVG Styling */
+.complexity-visualization text,
+.bipartite-graph text,
+.rna-pairing-svg .base,
+.architecture-svg text,
+.perf-chart-svg text {
+  fill: var(--color-text-secondary);
+}
+
+.complexity-visualization .axis-line,
+.perf-chart-svg .axis {
+  stroke: var(--color-text-secondary);
+}
+
+.complexity-visualization .grid-line,
+.bipartite-graph .graph-edge,
+.architecture-svg .arrow,
+.perf-chart-svg .grid-line {
+  stroke: var(--color-border);
+}
+
+.complexity-visualization .perm-line,
+.bipartite-graph .graph-node-right,
+.rna-pairing-svg .pair-GC {
+  stroke: var(--color-black);
+}
+
+.complexity-visualization .det-line,
+.bipartite-graph .graph-node-left {
+  stroke: var(--color-text-secondary);
+}
+
+.bipartite-graph .matching-edge {
+  stroke: var(--color-black);
+}
+
+.architecture-svg .block {
+  fill: var(--color-surface);
+  stroke: var(--color-border);
+}
+
+.architecture-svg .block.ensemble {
+  stroke: var(--color-black);
+  fill: var(--color-surface);
+}
+
+.architecture-svg .block-title {
+  fill: var(--color-text-primary);
+}
+
+.perf-chart-svg .bar {
+  fill: var(--color-black);
+}
+
+.perf-chart-svg .bar:hover {
+  opacity: 0.8;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .project-detail-content {
+    grid-template-columns: 1fr;
+  }
+
+  .project-sidebar {
+    position: static;
+    margin-top: 4rem;
+  }
+
+  .theorem-container {
+    grid-template-columns: 1fr;
+  }
+
+  .algorithm-grid,
+  .applications-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .project-hero {
+    padding: 6rem 0 3rem;
+  }
+
+  .project-title {
+    font-size: var(--font-size-4xl);
+  }
+
+  .project-subtitle {
+    font-size: var(--font-size-base);
+  }
+
+  .algorithm-grid,
+  .applications-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .math-formula {
+    font-size: var(--font-size-base);
+    padding: 2rem 0;
+    overflow-x: auto;
+  }
+
+  .sidebar-card {
+    padding: 2rem;
+  }
+
+  .algorithm-card,
+  .application-card,
+  .theorem-card {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .project-title {
+    font-size: var(--font-size-3xl);
+  }
+
+  .back-button {
+    margin-bottom: 2rem;
+  }
+
+  .project-detail-content {
+    gap: 2rem;
+  }
+
+  .sidebar-card {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .tech-tag {
+    padding: 0.6rem 1rem;
+    font-size: var(--font-size-xs);
+  }
+
+  .algorithm-icon,
+  .application-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 2rem;
+  }
+}

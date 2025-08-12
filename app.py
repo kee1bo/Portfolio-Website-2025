@@ -46,23 +46,6 @@ projects = [
         "thumbnail": "predictive-analytics.jpg",
         "github": "https://github.com/kee1bo/predictive-analytics"
     },
-    {
-        "id": "permanent-vs-determinant",
-        "title": "Permanent vs Determinant",
-        "description": "Conducted an exploratory study on matrix computations with applications in quantum computing and graph theory.",
-        "tags": ["Linear Algebra", "Quantum Computing", "Graph Theory"],
-        "thumbnail": "permanent-determinant.jpg",
-        "github": "https://github.com/kee1bo/permanent-vs-determinant"
-    },
-    {
-        "id": "rna-folding",
-        "title": "mRNA Vaccine Degradation",
-        "description": "Built deep learning models to predict mRNA degradation rates for the Stanford OpenVaccine Kaggle competition.",
-        "tags": ["Bioinformatics", "Deep Learning", "Kaggle"],
-        "thumbnail": "rna-folding.jpg",
-        "github": "https://github.com/kee1bo/kaggle-openvaccine",
-        "demo": "https://www.kaggle.com/c/stanford-covid-vaccine"
-    }
 ]
 
 education = [
@@ -99,7 +82,7 @@ def about():
     """Renders the about page."""
     return render_template('about.html', skills=skills, education=education)
 
-@app.route('/projects')
+@app.route('/projects_list')
 def projects_page():
     """Renders the projects page."""
     return render_template('projects.html', projects=projects)
