@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Neerudi Sai Vikas</title>
+
+    <!-- Meta tags for SEO and social sharing -->
+    <meta name="description" content="Professional portfolio of Neerudi Sai Vikas, an AI and Data Science Specialist with expertise in Machine Learning, NLP, and Deep Learning.">
+    <meta name="keywords" content="AI, Machine Learning, Data Science, NLP, Deep Learning, Python, TensorFlow, PyTorch">
+    <meta name="author" content="Neerudi Sai Vikas">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-domain.com/">
+    <meta property="og:title" content="Neerudi Sai Vikas | AI & Data Science Portfolio">
+    <meta property="og:description" content="Professional portfolio of Neerudi Sai Vikas, an AI and Data Science Specialist with expertise in Machine Learning, NLP, and Deep Learning.">
+    <meta property="og:image" content="https://your-domain.com/static/images/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://your-domain.com/">
+    <meta property="twitter:title" content="Neerudi Sai Vikas | AI & Data Science Portfolio">
+    <meta property="twitter:description" content="Professional portfolio of Neerudi Sai Vikas, an AI and Data Science Specialist with expertise in Machine Learning, NLP, and Deep Learning.">
+    <meta property="twitter:image" content="https://your-domain.com/static/images/og-image.jpg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/dark-mode.css" id="dark-mode-styles">
+
+
+</head>
+<body class="theme-light">
+    <!-- Theme Toggle -->
+    <div class="theme-toggle-container">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+            <span class="theme-toggle-icon sun">
+                <i data-lucide="sun"></i>
+            </span>
+            <span class="theme-toggle-icon moon hidden">
+                <i data-lucide="moon"></i>
+            </span>
+        </button>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+    <div class="container">
+        <div class="header-inner">
+            <a href="/" class="logo">NSV</a>
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="/" class="nav-link ">Home</a></li>
+                    <li><a href="/about" class="nav-link ">About</a></li>
+                    <li><a href="/projects_list" class="nav-link ">Projects</a></li>
+                    <li><a href="/contact" class="nav-link active">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </div>
+</header>
+<div class="mobile-nav">
+    <ul>
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/about" class="nav-link">About</a></li>
+        <li><a href="/projects_list" class="nav-link">Projects</a></li>
+        <li><a href="/contact" class="nav-link">Contact</a></li>
+    </ul>
+</div>
+
+    <!-- Main Content -->
+    <main>
+
+<section class="contact">
+    <div class="container">
+        <h1 class="section-title">Contact Me</h1>
+        <div class="contact-content">
+            <div class="contact-text">
+                <p>I'm always open to discussing new projects, creative ideas, or opportunities to be part of an ambitious team. Feel free to reach out to me.</p>
+                <ul>
+                    <li><strong>Email:</strong> <a href="mailto:neerudisaivikas@gmail.com">neerudisaivikas@gmail.com</a></li>
+                    <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/neerudi-sai-vikas-721349226/" target="_blank" rel="noopener noreferrer">/in/neerudi-sai-vikas</a></li>
+                    <li><strong>GitHub:</strong> <a href="https://github.com/kee1bo" target="_blank" rel="noopener noreferrer">/kee1bo</a></li>
+                </ul>
+            </div>
+            <div class="contact-form">
+                <form id="contactForm" action="#" method="POST">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+    <div class="container">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <span>NSV</span>
+                </div>
+                <div class="footer-info">
+                    <h2>Neerudi Sai Vikas</h2>
+                    <p>AI & Data Science Specialist</p>
+                </div>
+            </div>
+
+            <div class="footer-social">
+                <a href="https://linkedin.com/in/neerudi-sai-vikas" class="social-link" aria-label="LinkedIn">
+                    <i data-lucide="linkedin"></i>
+                </a>
+                <a href="https://github.com/kee1bo" class="social-link" aria-label="GitHub">
+                    <i data-lucide="github"></i>
+                </a>
+                <a href="mailto:neerudisaivikas@gmail.com" class="social-link" aria-label="Email">
+                    <i data-lucide="mail"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; <span id="current-year"></span> Neerudi Sai Vikas. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Set current year
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+</script>
+
+    <!-- Scripts -->
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/dark-mode.js"></script>
+
+
+
+    <!-- Initialize Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
