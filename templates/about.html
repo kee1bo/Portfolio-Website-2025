@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}About | Neerudi Sai Vikas{% endblock %}
+
+{% block content %}
+<section class="about">
+    <div class="container">
+        <div class="about-content">
+            <div class="about-image">
+                <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="Profile Picture of Neerudi Sai Vikas">
+            </div>
+            <div class="about-text">
+                <h1>About Me</h1>
+                <p>I am an AI and Data Science professional specializing in Machine Learning, Natural Language Processing, and Deep Learning. My passion lies in building intelligent systems that solve complex, real-world problems.</p>
+                <p>With a solid foundation in Computer Science from IIT Indore and an ongoing MTech in AI, I bridge theoretical knowledge with practical implementation to deliver impactful solutions. I thrive in collaborative settings, applying my technical skills to drive business value and technological progress.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="skills">
+    <div class="container">
+        <h2 class="section-title">Skills</h2>
+        <div class="skills-grid">
+            {% for skill in skills %}
+            <div class="skill-card">
+                <h3>{{ skill.name }}</h3>
+                <p>{{ skill.category }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="education">
+    <div class="container">
+        <h2 class="section-title">Education</h2>
+        <div class="education-list">
+            {% for item in education %}
+            <div class="education-item">
+                <h3>{{ item.degree }}</h3>
+                <p>{{ item.institution }} | {{ item.period }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

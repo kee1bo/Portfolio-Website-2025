@@ -3,31 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neerudi Sai Vikas - AI & Data Science Specialist</title>
+    <title>{% block title %}Neerudi Sai Vikas | AI & Data Science Portfolio{% endblock %}</title>
     
     <!-- Meta tags for SEO and social sharing -->
-    <meta name="description" content="AI & Data Science Specialist specializing in Machine Learning, NLP, and Deep Learning. Transforming complex data challenges into innovative AI solutions.">
+    <meta name="description" content="{% block description %}Professional portfolio of Neerudi Sai Vikas, an AI and Data Science Specialist with expertise in Machine Learning, NLP, and Deep Learning.{% endblock %}">
     <meta name="keywords" content="AI, Machine Learning, Data Science, NLP, Deep Learning, Python, TensorFlow, PyTorch">
     <meta name="author" content="Neerudi Sai Vikas">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://your-domain.com/">
-    <meta property="og:title" content="Neerudi Sai Vikas - AI & Data Science Specialist">
-    <meta property="og:description" content="AI & Data Science Specialist specializing in Machine Learning, NLP, and Deep Learning.">
+    <meta property="og:title" content="{% block og_title %}Neerudi Sai Vikas | AI & Data Science Portfolio{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Professional portfolio of Neerudi Sai Vikas, an AI and Data Science Specialist with expertise in Machine Learning, NLP, and Deep Learning.{% endblock %}">
     <meta property="og:image" content="https://your-domain.com/static/images/og-image.jpg">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://your-domain.com/">
-    <meta property="twitter:title" content="Neerudi Sai Vikas - AI & Data Science Specialist">
-    <meta property="twitter:description" content="AI & Data Science Specialist specializing in Machine Learning, NLP, and Deep Learning.">
+    <meta property="twitter:title" content="{% block twitter_title %}Neerudi Sai Vikas | AI & Data Science Portfolio{% endblock %}">
+    <meta property="twitter:description" content="{% block twitter_description %}Professional portfolio of Neerudi Sai Vikas, an AI and Data Science Specialist with expertise in Machine Learning, NLP, and Deep Learning.{% endblock %}">
     <meta property="twitter:image" content="https://your-domain.com/static/images/og-image.jpg">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
@@ -35,34 +35,27 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dark-mode.css') }}" id="dark-mode-styles">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/timeline.css') }}">
 
     {% block extra_css %}{% endblock %}
 </head>
 <body class="theme-light">
-    <!-- Animated Background -->
-    <div class="animated-bg"></div>
-    
     <!-- Theme Toggle -->
     <div class="theme-toggle-container">
         <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
             <span class="theme-toggle-icon sun">
                 <i data-lucide="sun"></i>
-                <span class="sr-only">Light mode</span>
             </span>
             <span class="theme-toggle-icon moon hidden">
                 <i data-lucide="moon"></i>
-                <span class="sr-only">Dark mode</span>
             </span>
         </button>
     </div>
 
     <!-- Header -->
-    {% include 'partials/header.html' %}
+    {% include 'partials/navigation.html' %}
 
     <!-- Main Content -->
     <main>
-        {% block hero %}{% endblock %}
         {% block content %}{% endblock %}
     </main>
 
@@ -72,51 +65,12 @@
     <!-- Scripts -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script src="{{ url_for('static', filename='js/dark-mode.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/animations.js') }}"></script>
-
-    <!-- Conditional Scripts -->
-    {% if request.endpoint == 'index' %}
-       <script src="{{ url_for('static', filename='js/timeline.js') }}"></script>
-       <script src="{{ url_for('static', filename='js/skills.js') }}"></script>
-    {% endif %}
-    {% if request.endpoint == 'project_detail' %}
-       <script src="{{ url_for('static', filename='js/project-detail.js') }}"></script>
-    {% endif %}
 
     {% block extra_js %}{% endblock %}
 
     <!-- Initialize Icons -->
     <script>
-        // Initialize all Lucide icons after page load
-        if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
-        }
-
-        // Ensure theme toggle icons are created
-        const themeToggle = document.getElementById('theme-toggle');
-        if (themeToggle && typeof lucide !== 'undefined') {
-            const sunSpan = themeToggle.querySelector('.sun');
-            const moonSpan = themeToggle.querySelector('.moon');
-            
-            if (sunSpan && !sunSpan.querySelector('svg')) {
-                const sunIcon = document.createElement('i');
-                sunIcon.setAttribute('data-lucide', 'sun');
-                sunSpan.prepend(sunIcon);
-                lucide.createIcons({ elements: [sunIcon] });
-            }
-            
-            if (moonSpan && !moonSpan.querySelector('svg')) {
-                const moonIcon = document.createElement('i');
-                moonIcon.setAttribute('data-lucide', 'moon');
-                moonSpan.prepend(moonIcon);
-                lucide.createIcons({ elements: [moonIcon] });
-            }
-            
-            // Call updateThemeUI to ensure correct initial state
-            if (typeof updateThemeUI === 'function') {
-                updateThemeUI();
-            }
-        }
+        lucide.createIcons();
     </script>
 </body>
 </html>
